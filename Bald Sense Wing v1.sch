@@ -39,11 +39,11 @@ Text Label 8900 950  0    50   ~ 0
 ~RST
 Text Label 8900 1150 0    50   ~ 0
 AREF
-Text Label 8800 1950 0    50   ~ 0
+Text Label 8550 1950 0    50   ~ 0
 SD_CLK
-Text Label 8800 2150 0    50   ~ 0
+Text Label 8550 2150 0    50   ~ 0
 SD_DOut
-Text Label 8800 2050 0    50   ~ 0
+Text Label 8550 2050 0    50   ~ 0
 SD_DIn
 Text Label 8900 2250 0    50   ~ 0
 RX
@@ -66,9 +66,9 @@ Wire Wire Line
 Wire Wire Line
 	8900 1150 9100 1150
 Wire Wire Line
-	8800 1950 9100 1950
+	8550 1950 9100 1950
 Wire Wire Line
-	8800 2150 9100 2150
+	8550 2150 9100 2150
 Wire Wire Line
 	8900 2250 9100 2250
 Wire Wire Line
@@ -215,8 +215,8 @@ L Device:Battery_Cell BT1
 U 1 1 5EC32CC0
 P 700 1250
 F 0 "BT1" H 818 1346 50  0000 L CNN
-F 1 "12mm" H 818 1255 50  0000 L CNN
-F 2 "Battery:BatteryHolder_Keystone_3000_1x12mm" V 700 1310 50  0001 C CNN
+F 1 "10mm" H 818 1255 50  0000 L CNN
+F 2 "My Libraries:MPD_BK-870" V 700 1310 50  0001 C CNN
 F 3 "~" V 700 1310 50  0001 C CNN
 	1    700  1250
 	1    0    0    -1  
@@ -286,37 +286,21 @@ Wire Wire Line
 	1150 1050 1150 1100
 Text Notes 1550 750  0    50   ~ 0
 DS3231 RTC
-Wire Wire Line
-	6600 2250 6750 2250
-Connection ~ 6750 2250
-$Comp
-L power:GND #PWR0108
-U 1 1 5EC4ECD5
-P 6750 2300
-F 0 "#PWR0108" H 6750 2050 50  0001 C CNN
-F 1 "GND" H 6755 2127 50  0000 C CNN
-F 2 "" H 6750 2300 50  0001 C CNN
-F 3 "" H 6750 2300 50  0001 C CNN
-	1    6750 2300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6750 2300 6750 2250
 $Comp
 L power:+3.3V #PWR0109
 U 1 1 5EC50915
-P 7500 1200
-F 0 "#PWR0109" H 7500 1050 50  0001 C CNN
-F 1 "+3.3V" H 7515 1373 50  0000 C CNN
-F 2 "" H 7500 1200 50  0001 C CNN
-F 3 "" H 7500 1200 50  0001 C CNN
-	1    7500 1200
+P 8100 1150
+F 0 "#PWR0109" H 8100 1000 50  0001 C CNN
+F 1 "+3.3V" H 8115 1323 50  0000 C CNN
+F 2 "" H 8100 1150 50  0001 C CNN
+F 3 "" H 8100 1150 50  0001 C CNN
+	1    8100 1150
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7500 1200 7500 1350
+	8100 1150 8100 1300
 Wire Wire Line
-	7500 1350 7400 1350
+	8100 1300 8000 1300
 $Comp
 L Device:C_Small C1
 U 1 1 5EC54974
@@ -354,33 +338,8 @@ Wire Wire Line
 	6050 1250 6050 1300
 Wire Wire Line
 	6050 1000 6050 1050
-$Comp
-L power:GND #PWR0112
-U 1 1 5EC595AD
-P 6150 1800
-F 0 "#PWR0112" H 6150 1550 50  0001 C CNN
-F 1 "GND" H 6155 1627 50  0000 C CNN
-F 2 "" H 6150 1800 50  0001 C CNN
-F 3 "" H 6150 1800 50  0001 C CNN
-	1    6150 1800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6200 1750 6150 1750
-Wire Wire Line
-	6150 1750 6150 1800
-Wire Wire Line
-	6200 1600 5850 1600
-Text Label 5850 1600 0    50   ~ 0
-PDM_CLK
-Text Label 7800 1550 2    50   ~ 0
-PDM_DATA
-Wire Wire Line
-	7400 1550 7800 1550
 Text Notes 6600 900  0    50   ~ 0
-MP34DT01TR-M PDM MIC (Sound Sensor)
-Text Notes 6050 2750 0    50   ~ 0
-Note: What does the LR signal actually do?\nAnd what does CLK and Data look like on a scope?
+CMM-4737DT-26186 PDM MIC (Sound Sensor)
 Wire Wire Line
 	5200 1350 5350 1350
 Wire Wire Line
@@ -679,22 +638,6 @@ F 3 "" H 2700 3200 50  0001 L BNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L My_Library:MP34DT01-M MK1
-U 1 1 5ECFFEA3
-P 6800 1650
-F 0 "MK1" H 6800 2217 50  0000 C CNN
-F 1 "MP34DT01-M" H 6800 2126 50  0000 C CNN
-F 2 "My Libraries:MIC_MP34DT01-M" H 6150 600 50  0001 L BNN
-F 3 "" H 7000 850 50  0001 L BNN
-F 4 "MEMS audio sensor omnidirectional stereo digital microphone" H 5650 950 50  0001 L BNN "Field4"
-F 5 "None" H 7350 850 50  0001 L BNN "Field5"
-F 6 "Unavailable" H 6000 800 50  0001 L BNN "Field6"
-F 7 "STMicroelectronics" H 6150 700 50  0001 L BNN "Field7"
-F 8 "MP34DT01-M" H 7000 750 50  0001 L BNN "Field8"
-	1    6800 1650
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:C_Small C7
 U 1 1 5ED0282F
 P 4250 6100
@@ -805,8 +748,6 @@ Text Notes 1150 5350 0    50   ~ 0
 TODO: Verify MicroSD Card Pin Out. (can we use QPSI or SDIO?)
 Text Notes 8800 600  0    50   ~ 0
 TODO: Figure out pinout to feather board.\n(Pick two different feathers to make sure they "work.")
-Wire Wire Line
-	6750 2250 6900 2250
 Text Label 8650 1050 0    50   ~ 0
 3v3_feather
 Wire Wire Line
@@ -907,8 +848,8 @@ Wire Wire Line
 Wire Wire Line
 	6300 5800 6400 5800
 Wire Wire Line
-	8800 2050 9100 2050
-Text Label 10400 1650 2    50   ~ 0
+	8550 2050 9100 2050
+Text Label 8550 1350 0    50   ~ 0
 SD-CD
 $Comp
 L power:GND #PWR0131
@@ -923,19 +864,19 @@ F 3 "" H 3950 6000 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3700 6000 3950 6000
-Text Label 10400 1750 2    50   ~ 0
+Text Label 8550 1450 0    50   ~ 0
 SD-CS
-Text Label 10400 1850 2    50   ~ 0
+Text Label 10400 2250 2    50   ~ 0
 PDM_CLK
-Text Label 10400 1950 2    50   ~ 0
+Text Label 10400 2150 2    50   ~ 0
 PDM_DATA
 Text Notes 8550 850  0    50   ~ 0
 TODO: Battery measuring circuit
 Text Label 10400 2050 2    50   ~ 0
 DS3231_RST
-Text Label 10400 2150 2    50   ~ 0
+Text Label 10400 1950 2    50   ~ 0
 DS3231_INT
-Text Label 10400 2250 2    50   ~ 0
+Text Label 10400 1850 2    50   ~ 0
 32KHz
 Text Label 8550 1850 0    50   ~ 0
 APDS_INT
@@ -1137,10 +1078,7 @@ F 3 "~" H 9500 5300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	9250 5300 9400 5300
-Connection ~ 6900 2250
-Wire Wire Line
-	6900 2250 7050 2250
-Text Label 8550 1450 0    50   ~ 0
+Text Label 10400 1750 2    50   ~ 0
 Batt_Meas_En
 Wire Wire Line
 	8550 1450 9100 1450
@@ -1166,10 +1104,10 @@ U 1 1 5F0E2E74
 P 9800 5300
 F 0 "Q1" H 9991 5300 50  0000 L CNN
 F 1 "Q_PNP_BEC" H 9990 5345 50  0001 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-323_SC-70" H 10000 5400 50  0001 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 10000 5400 50  0001 C CNN
 F 3 "~" H 9800 5300 50  0001 C CNN
-F 4 "MMBT3906WT1G " H 9800 5300 50  0001 C CNN "MPN"
-F 5 "88H4789" H 9800 5300 50  0001 C CNN "SPN"
+F 4 "MMBT3906LT3G" H 9800 5300 50  0001 C CNN "MPN"
+F 5 "09R9450" H 9800 5300 50  0001 C CNN "SPN"
 F 6 "Newark" H 9800 5300 50  0001 C CNN "Supplier"
 	1    9800 5300
 	1    0    0    1   
@@ -1271,7 +1209,7 @@ Wire Wire Line
 	5450 3600 5450 3800
 Text Label 5450 3600 3    50   ~ 0
 VBAT
-Text Label 8550 1350 0    50   ~ 0
+Text Label 10400 1650 2    50   ~ 0
 3v3_Reg_En
 Text Notes 6100 3400 0    50   ~ 0
 On-board 3.3v regulator
@@ -1294,7 +1232,7 @@ U 1 1 5EC92B46
 P 7750 3750
 F 0 "JP2" H 7728 3728 50  0000 L CNN
 F 1 "M02" H 7728 3644 40  0000 L CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" H 7750 3750 60  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 7750 3750 60  0001 C CNN
 F 3 "" H 7750 3750 60  0000 C CNN
 	1    7750 3750
 	1    0    0    -1  
@@ -1391,4 +1329,53 @@ Wire Wire Line
 	3500 2350 3500 2300
 Text Label 4050 3900 2    50   ~ 0
 SHT30-ALERT
+$Comp
+L My_Library:CMM-4737DT-26186-TR U5
+U 1 1 5ECAD5C5
+P 7300 1600
+F 0 "U5" H 7300 2167 50  0000 C CNN
+F 1 "CMM-4737DT-26186-TR" H 7300 2076 50  0000 C CNN
+F 2 "My Libraries:XDCR_CMM-4737DT-26186-TR" H 6700 1000 50  0001 L BNN
+F 3 "" H 7300 1600 50  0001 L BNN
+F 4 "Unavailable" H 7100 900 50  0001 L BNN "Field4"
+F 5 "None" H 7300 1600 50  0001 L BNN "Field5"
+F 6 "CUI Inc." H 6700 900 50  0001 L BNN "Field6"
+F 7 "None" H 7300 1600 50  0001 L BNN "Field7"
+F 8 "CMM-4737DT-26186-TR" H 7600 900 50  0001 L BNN "Field8"
+	1    7300 1600
+	1    0    0    -1  
+$EndComp
+Text Label 6200 1700 0    50   ~ 0
+PDM_CLK
+Text Label 6200 1500 0    50   ~ 0
+PDM_DATA
+Wire Wire Line
+	6200 1500 6600 1500
+Wire Wire Line
+	6200 1700 6600 1700
+$Comp
+L power:GND #PWR0108
+U 1 1 5ECDBE0F
+P 8100 1950
+F 0 "#PWR0108" H 8100 1700 50  0001 C CNN
+F 1 "GND" H 8105 1777 50  0000 C CNN
+F 2 "" H 8100 1950 50  0001 C CNN
+F 3 "" H 8100 1950 50  0001 C CNN
+	1    8100 1950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8000 1800 8100 1800
+Wire Wire Line
+	8100 1800 8100 1900
+Wire Wire Line
+	8000 1900 8100 1900
+Connection ~ 8100 1900
+Wire Wire Line
+	8100 1900 8100 1950
+Wire Wire Line
+	8000 1600 8100 1600
+Wire Wire Line
+	8100 1600 8100 1800
+Connection ~ 8100 1800
 $EndSCHEMATC
