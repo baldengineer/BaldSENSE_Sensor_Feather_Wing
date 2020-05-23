@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name Bald-Sense-Wing-v1-rescue)(type Legacy)(uri "${KIPRJMOD}/Bald Sense Wing v1-rescue.lib")(options "")(descr ""))
+)
