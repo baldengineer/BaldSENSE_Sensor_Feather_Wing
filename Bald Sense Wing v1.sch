@@ -632,14 +632,12 @@ L Jumper:SolderJumper_2_Open JP3
 U 1 1 5ECD812E
 P 3350 3900
 F 0 "JP3" H 3350 4013 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 3350 4014 50  0001 C CNN
+F 1 "SHT30-Alert" H 3350 4014 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 3350 3900 50  0001 C CNN
 F 3 "~" H 3350 3900 50  0001 C CNN
 	1    3350 3900
 	1    0    0    -1  
 $EndComp
-Text Label 4050 3900 2    50   ~ 0
-SHT30-ALERT
 Wire Wire Line
 	3500 3900 4050 3900
 Text Notes 1700 3000 0    50   ~ 0
@@ -818,7 +816,7 @@ L Jumper:SolderJumper_2_Open JP1
 U 1 1 5ECB8409
 P 9350 2900
 F 0 "JP1" H 9350 3013 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 9350 3014 50  0001 C CNN
+F 1 "3.3V Select" H 9350 3014 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 9350 2900 50  0001 C CNN
 F 3 "~" H 9350 2900 50  0001 C CNN
 	1    9350 2900
@@ -846,7 +844,7 @@ L Jumper:SolderJumper_2_Open JP5
 U 1 1 5ECC7A28
 P 5900 5800
 F 0 "JP5" H 5900 5913 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 5900 5914 50  0001 C CNN
+F 1 "LED En" H 5900 5914 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 5900 5800 50  0001 C CNN
 F 3 "~" H 5900 5800 50  0001 C CNN
 	1    5900 5800
@@ -1345,7 +1343,7 @@ L Jumper:SolderJumper_2_Bridged JP4
 U 1 1 5F2CA16A
 P 7500 4250
 F 0 "JP4" H 7500 4363 50  0000 C CNN
-F 1 "SolderJumper_2_Bridged" H 7500 4364 50  0001 C CNN
+F 1 "Reg En" H 7500 4364 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7500 4250 50  0001 C CNN
 F 3 "~" H 7500 4250 50  0001 C CNN
 	1    7500 4250
@@ -1377,7 +1375,7 @@ L Jumper:SolderJumper_3_Bridged12 JP6
 U 1 1 5F38A68C
 P 3200 2350
 F 0 "JP6" H 3200 2463 50  0000 C CNN
-F 1 "SolderJumper_3_Bridged12" H 3200 2464 50  0001 C CNN
+F 1 "RTC Batt Select" H 3200 2464 50  0001 C CNN
 F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 3200 2350 50  0001 C CNN
 F 3 "~" H 3200 2350 50  0001 C CNN
 	1    3200 2350
@@ -1391,4 +1389,6 @@ Wire Wire Line
 	3400 2350 3500 2350
 Wire Wire Line
 	3500 2350 3500 2300
+Text Label 4050 3900 2    50   ~ 0
+SHT30-ALERT
 $EndSCHEMATC
