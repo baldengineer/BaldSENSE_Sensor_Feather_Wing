@@ -866,17 +866,15 @@ Wire Wire Line
 	3700 6000 3950 6000
 Text Label 8550 1450 0    50   ~ 0
 SD-CS
-Text Label 10400 2250 2    50   ~ 0
-PDM_CLK
-Text Label 10400 2150 2    50   ~ 0
-PDM_DATA
-Text Notes 8550 850  0    50   ~ 0
-TODO: Battery measuring circuit
-Text Label 10400 2050 2    50   ~ 0
-DS3231_RST
 Text Label 10400 1950 2    50   ~ 0
-DS3231_INT
+PDM_CLK
 Text Label 10400 1850 2    50   ~ 0
+PDM_DATA
+Text Label 10400 2250 2    50   ~ 0
+DS3231_RST
+Text Label 10400 2150 2    50   ~ 0
+DS3231_INT
+Text Label 10400 2050 2    50   ~ 0
 32KHz
 Text Label 8550 1850 0    50   ~ 0
 APDS_INT
