@@ -850,7 +850,7 @@ Wire Wire Line
 Wire Wire Line
 	8550 2050 9100 2050
 Text Label 8550 1350 0    50   ~ 0
-SD-CD
+SD_CD
 $Comp
 L power:GND #PWR0131
 U 1 1 5ED3E50A
@@ -865,7 +865,7 @@ $EndComp
 Wire Wire Line
 	3700 6000 3950 6000
 Text Label 8550 1450 0    50   ~ 0
-SD-CS
+SD_CS
 Text Label 10400 1950 2    50   ~ 0
 PDM_CLK
 Text Label 10400 1850 2    50   ~ 0
@@ -878,9 +878,9 @@ Text Label 10400 2050 2    50   ~ 0
 32KHz
 Text Label 8550 1850 0    50   ~ 0
 APDS_INT
+Text Label 10400 1750 2    50   ~ 0
+SHT30_ALERT
 Text Label 8550 1750 0    50   ~ 0
-SHT30-ALERT
-Text Label 8550 1650 0    50   ~ 0
 Batt_Meas
 Text Label 8550 1550 0    50   ~ 0
 VUSB_Meas
@@ -1076,7 +1076,7 @@ F 3 "~" H 9500 5300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	9250 5300 9400 5300
-Text Label 10400 1750 2    50   ~ 0
+Text Label 8550 1650 0    50   ~ 0
 Batt_Meas_En
 Wire Wire Line
 	8550 1450 9100 1450
@@ -1326,7 +1326,7 @@ Wire Wire Line
 Wire Wire Line
 	3500 2350 3500 2300
 Text Label 4050 3900 2    50   ~ 0
-SHT30-ALERT
+SHT30_ALERT
 $Comp
 L My_Library:CMM-4737DT-26186-TR U5
 U 1 1 5ECAD5C5
