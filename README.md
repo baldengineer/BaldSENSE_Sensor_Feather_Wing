@@ -1,4 +1,4 @@
-![render of SHlT feather wing](/images/Bald Sense Wing v1-second pass layout-ray.png)
+![render of SHlT feather wing](/images/Bald%20Sense%20Wing%20v1-second%20pass%20layout-ray.png)
 
 ## SHlT Feather Wing
 Project to fit a temperature, humidity, light, and sound sensor to an Adafruit Feather board.
