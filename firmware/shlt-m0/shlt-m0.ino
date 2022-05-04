@@ -118,91 +118,86 @@ char *dtostrf (double val, signed char width, unsigned char prec, char *sout) {
 void setup () {
     Wire.begin();
     Serial.begin(9600);
+
+    pinMode(0, OUTPUT);
+    digitalWrite(0, LOW);
+    pinMode(1, OUTPUT);
+    digitalWrite(1, LOW);
     pinMode(LED_PIN, OUTPUT);
-    while(!Serial);
 
-    delay(3000); // wait for console opening
+    for (int x=0; x<4; x++) {
+      digitalWrite(LED_PIN, HIGH);
+      delay(250);
+      digitalWrite(LED_PIN, LOW);
+      delay(250);
+    }
+   // while(!Serial);
 
-    // connect to DS3231 (real-time clock)
-    init_rtc();
-
-    // connect to sd card
-    init_sdcard();
-
-    // connect to SHT30 (temp and sensor)
-    init_sht30();
-
-    // init color sensor
-    init_adps();
+    init_rtc();    // DS3231 
+    init_sdcard(); // sd card
+    init_sht30();  // temp and humidity
+    init_adps();   // color and light
 }
 
 void loop () {
+      const int meas_wait = 100;
+      delay(meas_wait);
+      digitalWrite(LED_PIN, LOW);
+      int sleepMS = Watchdog.sleep(5000); 
+      USBDevice.attach();  // re-attach for M0's USB CDC
+      //delay(5000);
+      digitalWrite(LED_PIN, HIGH);
+  
+      delay(meas_wait); 
+      digitalWrite(0, HIGH);
+       get_time_stamp();
+       Serial.print(time_stamp_string);
+       Serial.print(F(","));
+      digitalWrite(0, LOW);
+  
+      delay(meas_wait);
+      digitalWrite(0, HIGH);
+       get_sht30_data();
+       Serial.print(temp_humd_string);
+      digitalWrite(0, LOW);
 
-    // turn LED off
-    digitalWrite(LED_PIN, LOW);
-  //  int sleepMS = Watchdog.sleep(1000); 
-//    USBDevice.attach();  // re-attach for M0's USB CDC
-    delay(1000);
-    // turn LED on
-    digitalWrite(LED_PIN, HIGH);
+    delay(meas_wait);  
+    digitalWrite(0, HIGH);
+     if (APDS.colorAvailable()) {
+       // rrr,ggg,bbb,aaa
+       APDS.readColor(r, g, b, a);
+       sprintf(color_sensor_string, "%03d, %03d, %03d, %03d", r,g,b,a);
+     } else {
+       r = 0;
+       g = 0;
+       b = 0;
+       a = 0;
+     }
+     Serial.print(color_sensor_string);
+    digitalWrite(0, LOW);
 
-   // change this code because it doesn't matter now.
-    unsigned current_millis = millis();
-    // if (current_millis - previous_print_millis >= print_interval) {
-        get_time_stamp();
-        Serial.print(time_stamp_string);
-        Serial.print(F(","));
+    delay(meas_wait);
+    
+    digitalWrite(1, HIGH);
+     myFile = SD.open(file_name, FILE_WRITE);
+       myFile.print(time_stamp_string);
+       myFile.print(",");
+       myFile.print(temp_humd_string);
+       myFile.print(",");
+       myFile.println(color_sensor_string);
+     myFile.close();
+    digitalWrite(1, LOW);
 
-        get_sht30_data();
-        Serial.print(temp_humd_string);
-
-        if (APDS.colorAvailable()) {
-          // rrr,ggg,bbb,aaa
-          APDS.readColor(r, g, b, a);
-          sprintf(color_sensor_string, "%03d, %03d, %03d, %03d", r,g,b,a);
-        } else {
-          r = 0;
-          g = 0;
-          b = 0;
-          a = 0;
-        }
-        Serial.print(color_sensor_string);
-
-        myFile = SD.open(file_name, FILE_WRITE);
-         myFile.print(time_stamp_string);
-         myFile.print(",");
-         myFile.print(temp_humd_string);
-         myFile.print(",");
-         myFile.println(color_sensor_string);
-        myFile.close();
-
-        //sht30 stuff.
-      //  print_sht30_result("ClockStrech Mode", sht3xd.readTempAndHumidity(SHT3XD_REPEATABILITY_LOW, SHT3XD_MODE_CLOCK_STRETCH, 50));
-      //  delay(250);
-     //   print_sht30_result("Pooling Mode", sht3xd.readTempAndHumidity(SHT3XD_REPEATABILITY_HIGH, SHT3XD_MODE_POLLING, 50));
-
-        Serial.println();
-
-        // reset the clock
-        previous_print_millis = current_millis;
-   // }
-
-//    delay(3000);
+    Serial.println();
 }
 
 void get_time_stamp() {
     DateTime now = rtc.now();
 
     // 2020-07-08,21:20:57
-
     sprintf(time_stamp_string, "%d-%02d-%02d,%02d:%02d:%02d",
-        now.year(),
-        now.month(),
-        now.day(),
-        now.hour(),
-        now.minute(),
-        now.second()
-        );
+        now.year(), now.month(), now.day(),
+        now.hour(), now.minute(),now.second() );
 }
 
 
