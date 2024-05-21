@@ -30,3 +30,4 @@ hardware/#auto_saved_files#
 
 # Auto backup
 *.zip
+hardware/sym-lib-table
