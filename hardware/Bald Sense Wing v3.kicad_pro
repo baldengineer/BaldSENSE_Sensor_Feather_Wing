@@ -435,7 +435,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "Bald Sense Wing v1.kicad_pro",
+    "filename": "Bald Sense Wing v3.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -664,7 +664,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "gerbs/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
