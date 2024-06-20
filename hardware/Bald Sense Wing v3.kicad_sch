@@ -2770,54 +2770,6 @@
 				)
 			)
 			(symbol "1140084168_0_0"
-				(polyline
-					(pts
-						(xy -27.94 -15.24) (xy -27.94 15.24)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -27.94 15.24) (xy 27.94 15.24)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 27.94 -15.24) (xy -27.94 -15.24)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 27.94 15.24) (xy 27.94 -15.24)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
 				(pin bidirectional line
 					(at -33.02 2.54 0)
 					(length 5.08)
@@ -3071,6 +3023,19 @@
 					)
 				)
 			)
+			(symbol "1140084168_1_1"
+				(rectangle
+					(start -27.94 15.24)
+					(end 27.94 -15.24)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
 		)
 		(symbol "My_Library:APDS-9960"
 			(pin_names
@@ -3135,55 +3100,7 @@
 				)
 			)
 			(symbol "APDS-9960_0_0"
-				(polyline
-					(pts
-						(xy -10.16 -7.62) (xy -10.16 7.62)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -10.16 7.62) (xy 10.16 7.62)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 -7.62) (xy -10.16 -7.62)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 7.62) (xy 10.16 -7.62)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin bidirectional line
+				(pin open_collector line
 					(at 12.7 -3.81 180)
 					(length 2.54)
 					(name "SDA"
@@ -3291,7 +3208,7 @@
 						)
 					)
 				)
-				(pin bidirectional line
+				(pin open_collector line
 					(at 12.7 -6.35 180)
 					(length 2.54)
 					(name "SCL"
@@ -3325,6 +3242,19 @@
 								(size 1.016 1.016)
 							)
 						)
+					)
+				)
+			)
+			(symbol "APDS-9960_1_1"
+				(rectangle
+					(start -10.16 7.62)
+					(end 10.16 -7.62)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
 					)
 				)
 			)
@@ -3442,54 +3372,6 @@
 				)
 			)
 			(symbol "CMM-4737DT-26186-TR_0_0"
-				(polyline
-					(pts
-						(xy -12.7 -10.16) (xy 12.7 -10.16)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -12.7 10.16) (xy -12.7 -10.16)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 12.7 -10.16) (xy 12.7 10.16)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 12.7 10.16) (xy -12.7 10.16)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
 				(pin power_in line
 					(at 17.78 -5.08 180)
 					(length 5.08)
@@ -3599,6 +3481,19 @@
 					)
 				)
 			)
+			(symbol "CMM-4737DT-26186-TR_1_1"
+				(rectangle
+					(start -12.7 10.16)
+					(end 12.7 -10.16)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
 		)
 		(symbol "My_Library:SHT30-DIS"
 			(pin_names
@@ -3663,55 +3558,7 @@
 				)
 			)
 			(symbol "SHT30-DIS_0_0"
-				(polyline
-					(pts
-						(xy -10.16 -12.7) (xy -10.16 12.7)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -10.16 12.7) (xy 10.16 12.7)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 -12.7) (xy -10.16 -12.7)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 12.7) (xy 10.16 -12.7)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin bidirectional line
+				(pin open_collector line
 					(at -15.24 1.27 0)
 					(length 5.08)
 					(name "SDA"
@@ -3765,7 +3612,7 @@
 						)
 					)
 				)
-				(pin bidirectional clock
+				(pin open_collector clock
 					(at -15.24 -1.27 0)
 					(length 5.08)
 					(name "SCL"
@@ -3837,7 +3684,7 @@
 						)
 					)
 				)
-				(pin passive line
+				(pin power_in line
 					(at 15.24 -10.16 180)
 					(length 5.08)
 					(name "VSS"
@@ -3871,6 +3718,19 @@
 								(size 1.016 1.016)
 							)
 						)
+					)
+				)
+			)
+			(symbol "SHT30-DIS_1_0"
+				(rectangle
+					(start -10.16 12.7)
+					(end 10.16 -12.7)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
 					)
 				)
 			)
@@ -9021,7 +8881,7 @@
 				)
 			)
 		)
-		(property "Footprint" "My Libraries:XDCR_CMM-4737DT-26186-TR"
+		(property "Footprint" "XDCR_CMM-4737DT-26186-TR"
 			(at 170.18 55.88 0)
 			(effects
 				(font
@@ -9952,7 +9812,7 @@
 				)
 			)
 		)
-		(property "Footprint" "My Libraries:AMPHENOL_1140084168"
+		(property "Footprint" "AMPHENOL_1140084168"
 			(at 62.23 185.42 0)
 			(effects
 				(font
@@ -9962,7 +9822,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "A"
 			(at 86.36 176.53 0)
 			(effects
 				(font
@@ -10095,7 +9955,7 @@
 				)
 			)
 		)
-		(property "Footprint" "My Libraries:APDS-9960"
+		(property "Footprint" "APDS-9960"
 			(at 123.19 49.53 0)
 			(effects
 				(font
@@ -10105,7 +9965,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "SEN-12005"
 			(at 123.19 52.07 0)
 			(effects
 				(font
@@ -10182,7 +10042,7 @@
 				)
 			)
 		)
-		(property "Footprint" "My Libraries:DFN250X250X100-9N"
+		(property "Footprint" "DFN250X250X100-9N"
 			(at 68.58 114.3 0)
 			(effects
 				(font
@@ -10192,7 +10052,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "Sensirion"
 			(at 68.58 116.84 0)
 			(effects
 				(font
