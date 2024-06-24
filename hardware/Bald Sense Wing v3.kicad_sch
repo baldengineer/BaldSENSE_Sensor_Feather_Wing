@@ -2574,6 +2574,161 @@
 				)
 			)
 		)
+		(symbol "My Library:AP2151AW-7"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0.762 7.874 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 2.54 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 2.54 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 2.54 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "500 mA Load Switch, Acitve High Enable, with OD Flag"
+				(at 2.54 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "AP2151AW-7_0_0"
+				(pin output line
+					(at 8.89 2.54 180)
+					(length 2.54)
+					(name "OUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -8.89 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -8.89 -3.81 0)
+					(length 2.54)
+					(name "EN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -8.89 2.54 0)
+					(length 2.54)
+					(name "IN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "AP2151AW-7_1_0"
+				(pin open_collector line
+					(at 8.89 -3.81 180)
+					(length 2.54)
+					(name "FLG"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "AP2151AW-7_1_1"
+				(rectangle
+					(start -6.35 6.35)
+					(end 6.35 -6.35)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+		)
 		(symbol "My Library:TestPoint_Harwin"
 			(pin_numbers hide)
 			(pin_names
@@ -4354,6 +4509,12 @@
 		(uuid "a93a5087-c044-44ea-83ae-0e1d15a0bfb1")
 	)
 	(junction
+		(at 194.31 101.6)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ba765ff6-b0f0-4afd-8d65-c72337ba0ce3")
+	)
+	(junction
 		(at 81.28 106.68)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4388,6 +4549,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f73e7d6e-0901-42cc-b12e-65c05524a5e1")
+	)
+	(junction
+		(at 194.31 107.95)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f8c21eea-0096-4839-877e-7d1e8b06da65")
 	)
 	(no_connect
 		(at 27.94 152.4)
@@ -4466,6 +4633,16 @@
 			(type default)
 		)
 		(uuid "095478ad-7670-4177-a461-29693b6d3b22")
+	)
+	(wire
+		(pts
+			(xy 194.31 99.06) (xy 194.31 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "09961a50-602b-4e0a-a3bd-8ac655d63529")
 	)
 	(wire
 		(pts
@@ -4556,6 +4733,16 @@
 			(type default)
 		)
 		(uuid "14b2add3-07f0-432e-8c9d-2650c2af26eb")
+	)
+	(wire
+		(pts
+			(xy 160.02 107.95) (xy 172.72 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1627ed03-d268-4f08-b271-f36055edda97")
 	)
 	(wire
 		(pts
@@ -4809,6 +4996,16 @@
 	)
 	(wire
 		(pts
+			(xy 194.31 101.6) (xy 194.31 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3f5497f5-1926-45df-83fe-a2dfdc45d379")
+	)
+	(wire
+		(pts
 			(xy 34.29 44.45) (xy 26.67 44.45)
 		)
 		(stroke
@@ -4999,6 +5196,16 @@
 	)
 	(wire
 		(pts
+			(xy 190.5 107.95) (xy 194.31 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "58e414d8-4b9c-42a9-97f0-9ce79f518ae7")
+	)
+	(wire
+		(pts
 			(xy 226.06 62.23) (xy 231.14 62.23)
 		)
 		(stroke
@@ -5089,7 +5296,7 @@
 	)
 	(wire
 		(pts
-			(xy 241.3 99.06) (xy 241.3 92.71)
+			(xy 241.3 99.06) (xy 241.3 96.52)
 		)
 		(stroke
 			(width 0)
@@ -5156,6 +5363,16 @@
 			(type default)
 		)
 		(uuid "6c8a3edd-8e36-416a-ba8d-c7a79e7135e6")
+	)
+	(wire
+		(pts
+			(xy 246.38 72.39) (xy 246.38 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6f0de159-69db-4e0c-9eab-1d580a48f884")
 	)
 	(wire
 		(pts
@@ -5239,7 +5456,7 @@
 	)
 	(wire
 		(pts
-			(xy 234.95 128.27) (xy 234.95 123.19)
+			(xy 234.95 128.27) (xy 234.95 125.73)
 		)
 		(stroke
 			(width 0)
@@ -5276,6 +5493,16 @@
 			(type default)
 		)
 		(uuid "962eb356-96ac-4a2c-a09f-62e71b70fec8")
+	)
+	(wire
+		(pts
+			(xy 160.02 97.79) (xy 160.02 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "96936cc0-5ff0-4ed9-8d8a-28db4b9edb60")
 	)
 	(wire
 		(pts
@@ -5579,6 +5806,16 @@
 	)
 	(wire
 		(pts
+			(xy 190.5 101.6) (xy 194.31 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cd82f3fc-db2d-4b22-87dc-1fa86ab619be")
+	)
+	(wire
+		(pts
 			(xy 27.94 149.86) (xy 19.05 149.86)
 		)
 		(stroke
@@ -5636,6 +5873,16 @@
 			(type default)
 		)
 		(uuid "d4bfa115-409a-4683-8ca6-49f67ab90954")
+	)
+	(wire
+		(pts
+			(xy 194.31 107.95) (xy 199.39 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4ea606b-4c3a-40cc-b091-35cb135f9580")
 	)
 	(wire
 		(pts
@@ -5759,13 +6006,13 @@
 	)
 	(wire
 		(pts
-			(xy 254 73.66) (xy 241.3 73.66)
+			(xy 160.02 107.95) (xy 160.02 109.22)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "e3b7e498-2ee3-4473-b6c2-d68ea9c8868e")
+		(uuid "e1e829be-71af-49b2-a97c-8f9747395adb")
 	)
 	(wire
 		(pts
@@ -5779,6 +6026,16 @@
 	)
 	(wire
 		(pts
+			(xy 160.02 114.3) (xy 160.02 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e6c702fb-001c-46fc-ac2d-ca24e2691b1d")
+	)
+	(wire
+		(pts
 			(xy 176.53 151.13) (xy 176.53 154.94)
 		)
 		(stroke
@@ -5786,6 +6043,16 @@
 			(type default)
 		)
 		(uuid "e8423ff5-717f-455d-9e92-5fe25cff800c")
+	)
+	(wire
+		(pts
+			(xy 160.02 101.6) (xy 172.72 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e85427ca-20d5-43ae-847f-8f0e9233fe8e")
 	)
 	(wire
 		(pts
@@ -5799,7 +6066,7 @@
 	)
 	(wire
 		(pts
-			(xy 251.46 123.19) (xy 251.46 129.54)
+			(xy 251.46 127) (xy 251.46 129.54)
 		)
 		(stroke
 			(width 0)
@@ -5879,6 +6146,16 @@
 	)
 	(wire
 		(pts
+			(xy 181.61 113.03) (xy 181.61 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f5416908-99f2-429b-81e6-6c4399212f66")
+	)
+	(wire
+		(pts
 			(xy 251.46 62.23) (xy 257.81 62.23)
 		)
 		(stroke
@@ -5886,6 +6163,16 @@
 			(type default)
 		)
 		(uuid "f5f3bb45-f512-4734-96c1-5261ed7997bd")
+	)
+	(wire
+		(pts
+			(xy 246.38 73.66) (xy 241.3 73.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f64152a5-f8e6-4251-9b43-fe395cae28d8")
 	)
 	(wire
 		(pts
@@ -6039,7 +6326,7 @@
 	)
 	(text "USB Power Detection"
 		(exclude_from_sim no)
-		(at 232.41 91.44 0)
+		(at 232.156 86.106 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6058,17 +6345,6 @@
 			(justify left bottom)
 		)
 		(uuid "ef4edde3-f977-4447-945f-2b7c82100e5f")
-	)
-	(label "VBAT"
-		(at 257.81 34.29 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "01d5c826-ea3a-4458-8043-1260e46762d8")
 	)
 	(label "SDA"
 		(at 257.81 62.23 180)
@@ -6114,17 +6390,6 @@
 		)
 		(uuid "10505604-d53d-4b51-aa24-93728b01a25f")
 	)
-	(label "VBAT"
-		(at 234.95 123.19 270)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "143e3a12-c48c-4d57-9d6e-13aae4368912")
-	)
 	(label "VUSB_Meas"
 		(at 254 106.68 180)
 		(fields_autoplaced yes)
@@ -6135,6 +6400,17 @@
 			(justify right bottom)
 		)
 		(uuid "20d9b2ad-96b0-48c0-ad2e-b510768bf53e")
+	)
+	(label "Load_SW_En"
+		(at 160.02 107.95 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "257de453-6324-4b08-a211-846621fe1571")
 	)
 	(label "Batt_Meas"
 		(at 217.17 36.83 0)
@@ -6257,17 +6533,6 @@
 		)
 		(uuid "4e70e64c-9d76-4757-ab1e-fd28e574b330")
 	)
-	(label "3v3_feather"
-		(at 219.71 26.67 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5874d739-9809-4df9-9af4-4dee93497780")
-	)
 	(label "PDM_CLK"
 		(at 264.16 49.53 180)
 		(fields_autoplaced yes)
@@ -6356,17 +6621,6 @@
 		)
 		(uuid "66a704b1-00e1-4899-9bc7-c357b931c192")
 	)
-	(label "3v3_feather"
-		(at 241.3 73.66 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "6bfab62e-fa3b-45f3-8a15-0837df3629d0")
-	)
 	(label "RTC_BATT"
 		(at 44.45 30.48 270)
 		(fields_autoplaced yes)
@@ -6400,17 +6654,6 @@
 		)
 		(uuid "7746f452-fc9e-4d50-aaba-3b79cb3ec3f6")
 	)
-	(label "VBAT"
-		(at 251.46 123.19 270)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "777994b2-9155-4504-8ed1-f2f2cbdd058d")
-	)
 	(label "Batt_Meas_En"
 		(at 217.17 39.37 0)
 		(fields_autoplaced yes)
@@ -6432,17 +6675,6 @@
 			(justify right bottom)
 		)
 		(uuid "7e4c4597-0532-4626-b23b-166a14cdab16")
-	)
-	(label "VUSB"
-		(at 257.81 39.37 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "8257baca-955d-4b6c-8358-4beb68c7018b")
 	)
 	(label "VBAT"
 		(at 72.39 57.15 0)
@@ -6664,17 +6896,6 @@
 		)
 		(uuid "f13fabe3-0cff-467f-8cde-6fcc36a74f83")
 	)
-	(label "VUSB"
-		(at 241.3 92.71 270)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "f50b0723-c432-4348-9876-deef0dc87b1b")
-	)
 	(label "SCL"
 		(at 41.91 100.33 0)
 		(fields_autoplaced yes)
@@ -6716,7 +6937,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "00000000-0000-0000-0000-00005d375c76")
 		(property "Reference" "J1"
 			(at 234.1626 18.415 0)
@@ -6825,7 +7046,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "00000000-0000-0000-0000-00005d375cc4")
 		(property "Reference" "J2"
 			(at 248.412 28.575 0)
@@ -7083,7 +7304,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "4.7K"
+		(property "Value" "10K"
 			(at 185.6486 149.733 0)
 			(effects
 				(font
@@ -7152,7 +7373,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "4.7K"
+		(property "Value" "10K"
 			(at 178.0286 149.733 0)
 			(effects
 				(font
@@ -11517,13 +11738,79 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3.3V")
+		(at 241.3 96.52 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "00045b44-37cb-4f4d-a9c4-ea7ef267c7b2")
+		(property "Reference" "#PWR014"
+			(at 241.3 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+Vusb"
+			(at 241.3 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 241.3 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 241.3 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 241.3 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c56f7b3e-efe0-4b78-9741-e9023a6f3d9a")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "#PWR014")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "My Library:TestPoint_Harwin")
 		(at 226.06 57.15 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "1dbf9b17-9118-404a-b288-ef8e09316095")
 		(property "Reference" "TP2"
 			(at 219.456 57.15 90)
@@ -11582,13 +11869,406 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3.3V")
+		(at 246.38 72.39 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "244e91ca-5b8f-43a7-bdfd-ff9c572f8933")
+		(property "Reference" "#PWR09"
+			(at 246.38 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3v3_Feather"
+			(at 246.38 68.834 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 246.38 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 246.38 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 246.38 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "33cb45d8-0403-4d0d-870f-aea6061ac08d")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "My Library:TestPoint_Harwin")
+		(at 199.39 107.95 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(uuid "2ab192ed-e4c4-47b2-8642-a3964a55d88b")
+		(property "Reference" "TP7"
+			(at 205.994 107.95 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint_Harwin"
+			(at 204.47 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "My Libraries:Harwin-S1751-46-Test-Point"
+			(at 199.39 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 199.39 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 199.39 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8f4aad50-95e7-4e12-bc7b-3dea69135c5c")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "TP7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3V")
+		(at 234.95 125.73 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "35164188-1dc6-434b-8892-74fc73154091")
+		(property "Reference" "#PWR010"
+			(at 234.95 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+Vbatt"
+			(at 235.331 121.3358 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 234.95 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 234.95 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 234.95 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7d27fce9-7075-49d3-8521-f5df7434da68")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "#PWR010")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3V")
+		(at 257.81 39.37 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3f78888b-dfc2-4249-913a-b5423b2f6b5f")
+		(property "Reference" "#PWR013"
+			(at 254 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+Vusb"
+			(at 261.62 39.3699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 257.81 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 257.81 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 257.81 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f1bcf019-56d4-4c48-9435-fe3276a1cb82")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "#PWR013")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3V")
+		(at 219.71 26.67 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "41ee6d7a-6549-498e-9900-981e1fba674d")
+		(property "Reference" "#PWR08"
+			(at 223.52 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3v3_Feather"
+			(at 226.314 24.892 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 219.71 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 219.71 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 219.71 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8f948cd2-b6a0-4c85-aab5-1e822cfc5103")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3V")
+		(at 251.46 127 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "45af3b44-f13f-45c3-8afa-92f478b1ae2b")
+		(property "Reference" "#PWR011"
+			(at 251.46 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+Vbatt"
+			(at 251.841 122.6058 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 251.46 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 251.46 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 251.46 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0439c85e-44d5-4e33-afd8-578b0e890141")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "#PWR011")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "My Library:TestPoint_Harwin")
 		(at 241.3 106.68 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "4bffdad9-2026-40f8-b0c1-d5e7a779a1ca")
 		(property "Reference" "TP6"
 			(at 234.696 106.68 90)
@@ -11732,13 +12412,148 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R_Small")
+		(at 160.02 111.76 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5684dc87-80f3-4af2-8528-f044584ba478")
+		(property "Reference" "R4"
+			(at 162.56 110.4899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "10K"
+			(at 162.56 113.0299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 160.02 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 160.02 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 160.02 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c9644d42-3b41-4f75-9feb-35a5bbbcfbf7")
+		)
+		(pin "2"
+			(uuid "309c2b3e-4f8e-41c8-af40-77d7a4106cfc")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "R4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3V")
+		(at 194.31 99.06 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5efeb3c4-c703-495b-9d53-dff4baaf90f3")
+		(property "Reference" "#PWR06"
+			(at 194.31 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 194.691 94.6658 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 194.31 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 194.31 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 194.31 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cabae640-31a8-4628-b867-1e0d6478f0c6")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "#PWR06")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "My Library:TestPoint_Harwin")
 		(at 251.46 149.86 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "5ffecc57-ebeb-4828-9460-7bb8e18d196d")
 		(property "Reference" "TP5"
 			(at 244.856 149.86 90)
@@ -11797,13 +12612,78 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 160.02 115.57 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "69c0178c-f8cb-4881-8cca-a50c8efe1a88")
+		(property "Reference" "#PWR04"
+			(at 160.02 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 160.147 119.9642 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 160.02 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 160.02 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 160.02 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6396a188-1c04-4b9d-a560-4cc0858ea1bc")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "#PWR04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "My Library:TestPoint_Harwin")
 		(at 226.06 59.69 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "6dfa1091-dd99-4fa1-bae7-da719d3fb4c9")
 		(property "Reference" "TP3"
 			(at 219.456 59.69 90)
@@ -11927,6 +12807,217 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 181.61 114.3 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "985003d8-d253-4325-a322-802ea54b31b7")
+		(property "Reference" "#PWR05"
+			(at 181.61 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 181.737 118.6942 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 181.61 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 181.61 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 181.61 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c0c61217-3e85-4a9a-b3d1-9f84bd5d0534")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "My Library:AP2151AW-7")
+		(at 181.61 104.14 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9d99ef94-1f93-4c74-813c-61465dd58e76")
+		(property "Reference" "U4"
+			(at 181.61 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AP2151AW-7 "
+			(at 181.61 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
+			(at 184.15 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 184.15 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "500 mA Load Switch, Acitve High Enable, with OD Flag"
+			(at 184.15 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "4"
+			(uuid "505db39d-9b42-4710-b465-c15f519cc2d7")
+		)
+		(pin "1"
+			(uuid "0968d06c-b1ec-46fc-bfc3-a0f37c1c483d")
+		)
+		(pin "3"
+			(uuid "384bcd79-9470-4ef9-80fc-1ef08ee07fe7")
+		)
+		(pin "2"
+			(uuid "390f5261-037b-42ec-afc9-fb3353f7ea1c")
+		)
+		(pin "5"
+			(uuid "22bf9bc0-6cc3-48ab-aecf-480cb61bbbc9")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "U4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 194.31 105.41 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(fields_autoplaced yes)
+		(uuid "ab76d243-db7f-429a-9ce9-cea4cae1ad88")
+		(property "Reference" "R15"
+			(at 196.85 104.1399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "10K"
+			(at 196.85 106.6799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 194.31 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 194.31 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 194.31 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cd19b791-e8e6-44a0-9caa-c60219b346c0")
+		)
+		(pin "2"
+			(uuid "dab9dbf8-e7b3-47fa-b5c1-5812e69ef208")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "R15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3.3V")
 		(at 185.42 66.04 90)
 		(unit 1)
@@ -11992,13 +13083,145 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3.3V")
+		(at 257.81 34.29 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d3352e98-015c-4841-a36c-79e4bb84a46a")
+		(property "Reference" "#PWR012"
+			(at 254 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+Vbatt"
+			(at 261.62 34.2899 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 257.81 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 257.81 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 257.81 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "45979d51-3a44-4312-b4ea-bd2fe6a8c1ef")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "#PWR012")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3V")
+		(at 160.02 97.79 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "db010e24-913b-47f5-8223-78af34bf3ba7")
+		(property "Reference" "#PWR07"
+			(at 160.02 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3v3_Feather"
+			(at 160.401 93.3958 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 160.02 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 160.02 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 160.02 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2a3a8659-7a94-4216-8dd8-3bd053949de5")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "My Library:TestPoint_Harwin")
 		(at 226.06 62.23 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "f1ec7fd5-d5f0-43b4-90e9-2f9e78f909cc")
 		(property "Reference" "TP4"
 			(at 219.456 62.23 90)
@@ -12063,7 +13286,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "f5b478aa-2766-45c2-a3de-4aefbe200e39")
 		(property "Reference" "TP1"
 			(at 219.456 29.21 90)
