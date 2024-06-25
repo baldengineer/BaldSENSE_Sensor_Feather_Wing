@@ -1,4 +1,4 @@
-![render of BaldSENSE Sensor Feather Wing](/images/Bald%20Sense%20Wing%20v1-second%20pass%20layout-ray.png)
+![render of BaldSENSE Sensor Feather Wing](/images/bald_sense_wing_v3.jpg)
 
 ## BaldSense Sensor Feather Wing
 Project to fit a temperature, humidity, light, and sound sensor to an Adafruit Feather wing form factor.
@@ -16,6 +16,6 @@ Minimal environmental sensor board for characterizing a specific location.
     - DS3231S
 
 ## Status: Work In Progress
-I created this project as a livestream project almost 5 years ago. Since then, I have found some issues with the design. And, I have learned how to use KiCad significantly better.
+Originally created as a livestream project. Being updated for a long-term IoT project. 
 
-I do not recommending building this design yet.
+V3 board fixes many issues with v1 and v2, but has not been tested yet.
