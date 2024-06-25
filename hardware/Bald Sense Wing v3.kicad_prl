@@ -1,18 +1,10 @@
 {
   "board": {
-    "active_layer": 36,
+    "active_layer": 2,
     "active_layer_preset": "",
     "auto_track_width": false,
     "hidden_netclasses": [],
-    "hidden_nets": [
-      "+3.3V",
-      "GND",
-      "+3v3_Feather",
-      "+RTC_BATT",
-      "+Vusb",
-      "+V_RTC",
-      "+Vbatt"
-    ],
+    "hidden_nets": [],
     "high_contrast_mode": 1,
     "net_color_mode": 1,
     "opacity": {
@@ -76,7 +68,7 @@
       40
     ],
     "visible_layers": "000d09a_80000005",
-    "zone_display_mode": 1
+    "zone_display_mode": 0
   },
   "git": {
     "repo_password": "",
