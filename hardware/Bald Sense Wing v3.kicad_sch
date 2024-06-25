@@ -6678,7 +6678,7 @@
 	)
 	(text "USB Power Detection"
 		(exclude_from_sim no)
-		(at 232.156 86.106 0)
+		(at 232.156 89.916 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -12667,7 +12667,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "STEMMA-QT"
+		(property "Value" "JST_SH_BM04B-SRSS-TB"
 			(at 217.17 85.0901 0)
 			(effects
 				(font
@@ -12703,7 +12703,7 @@
 				(hide yes)
 			)
 		)
-		(property "Field5" "JST SH"
+		(property "Field5" "STEMMA-QT"
 			(at 217.17 82.5501 0)
 			(effects
 				(font
@@ -13217,7 +13217,7 @@
 				)
 			)
 		)
-		(property "Value" "PTS810"
+		(property "Value" "PTS810SJK250SMTR LFS"
 			(at 168.91 19.05 0)
 			(effects
 				(font
