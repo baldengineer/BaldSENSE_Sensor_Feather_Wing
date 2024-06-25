@@ -51,7 +51,13 @@
           "min_clearance": 0.508
         }
       },
-      "diff_pair_dimensions": [],
+      "diff_pair_dimensions": [
+        {
+          "gap": 0.0,
+          "via_gap": 0.0,
+          "width": 0.0
+        }
+      ],
       "drc_exclusions": [],
       "meta": {
         "filename": "board_design_settings.json",
@@ -203,7 +209,12 @@
           "spacing": 0.6
         }
       },
-      "via_dimensions": [],
+      "via_dimensions": [
+        {
+          "diameter": 0.0,
+          "drill": 0.0
+        }
+      ],
       "zones_allow_external_fillets": false
     },
     "ipc2581": {
@@ -474,6 +485,23 @@
         "via_diameter": 0.8,
         "via_drill": 0.4,
         "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1524,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "RTC Batt",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.3048,
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
+        "wire_width": 6
       }
     ],
     "meta": {
@@ -531,8 +559,8 @@
         "pattern": "/PDM_DATA"
       },
       {
-        "netclass": "Power",
-        "pattern": "/RTC_BATT"
+        "netclass": "RTC Batt",
+        "pattern": "+RTC_BATT"
       },
       {
         "netclass": "Default",
@@ -576,7 +604,7 @@
       },
       {
         "netclass": "Power",
-        "pattern": "/VUSB"
+        "pattern": "+Vusb"
       },
       {
         "netclass": "Default",
@@ -640,11 +668,11 @@
       },
       {
         "netclass": "Power",
-        "pattern": "+3V3"
+        "pattern": "+3.3V"
       },
       {
         "netclass": "Power",
-        "pattern": "+BATT"
+        "pattern": "+Vbatt"
       },
       {
         "netclass": "Power",
@@ -652,11 +680,15 @@
       },
       {
         "netclass": "Power",
-        "pattern": "/VBAT"
+        "pattern": "+VBAT"
       },
       {
         "netclass": "Power",
         "pattern": "GND"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "+3v3_Feather"
       }
     ]
   },
