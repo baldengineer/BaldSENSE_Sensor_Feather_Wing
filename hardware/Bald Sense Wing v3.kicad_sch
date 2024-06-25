@@ -5189,7 +5189,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 21.59) (xy 173.99 21.59)
+			(xy 179.07 25.4) (xy 173.99 25.4)
 		)
 		(stroke
 			(width 0)
@@ -6809,7 +6809,7 @@
 		(uuid "3178a00a-f431-47a4-a20e-9334542b5d91")
 	)
 	(label "~{RST}"
-		(at 179.07 21.59 180)
+		(at 179.07 25.4 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10456,7 +10456,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "00000000-0000-0000-0000-00005ed0282f")
 		(property "Reference" "C7"
 			(at 110.2868 153.7716 0)
@@ -11927,7 +11927,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 163.83 21.59 0)
+		(at 163.83 25.4 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11935,7 +11935,7 @@
 		(dnp no)
 		(uuid "126df8da-5741-4314-bace-5536c991eb95")
 		(property "Reference" "#PWR019"
-			(at 163.83 27.94 0)
+			(at 163.83 31.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11944,7 +11944,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 163.957 25.9842 0)
+			(at 163.957 29.7942 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11952,7 +11952,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 163.83 21.59 0)
+			(at 163.83 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11961,7 +11961,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 163.83 21.59 0)
+			(at 163.83 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11970,7 +11970,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 163.83 21.59 0)
+			(at 163.83 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12007,7 +12007,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint_Harwin"
+		(property "Value" "Test Point"
 			(at 201.93 53.34 0)
 			(effects
 				(font
@@ -12016,7 +12016,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "My Libraries:Harwin-S1751-46-Test-Point"
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
 			(at 207.01 48.26 0)
 			(effects
 				(font
@@ -12137,7 +12137,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint_Harwin"
+		(property "Value" "FLG"
 			(at 204.47 107.95 0)
 			(effects
 				(font
@@ -12146,7 +12146,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "My Libraries:Harwin-S1751-46-Test-Point"
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
 			(at 199.39 113.03 0)
 			(effects
 				(font
@@ -12600,7 +12600,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint_Harwin"
+		(property "Value" "Test Point"
 			(at 236.22 106.68 0)
 			(effects
 				(font
@@ -12609,7 +12609,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "My Libraries:Harwin-S1751-46-Test-Point"
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
 			(at 241.3 101.6 0)
 			(effects
 				(font
@@ -12650,16 +12650,16 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x04")
-		(at 214.63 83.82 0)
+		(at 214.63 86.36 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "566af559-f80e-4308-a3ce-d4738e77ec49")
 		(property "Reference" "J4"
-			(at 217.17 82.5499 0)
+			(at 217.17 87.6301 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12668,7 +12668,7 @@
 			)
 		)
 		(property "Value" "STEMMA-QT"
-			(at 217.17 85.0899 0)
+			(at 217.17 85.0901 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12677,7 +12677,7 @@
 			)
 		)
 		(property "Footprint" "Connector_JST:JST_SH_BM04B-SRSS-TB_1x04-1MP_P1.00mm_Vertical"
-			(at 214.63 83.82 0)
+			(at 214.63 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12686,7 +12686,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 214.63 83.82 0)
+			(at 214.63 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12695,7 +12695,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 214.63 83.82 0)
+			(at 214.63 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12704,7 +12704,7 @@
 			)
 		)
 		(property "Field5" "JST SH"
-			(at 217.17 87.6299 0)
+			(at 217.17 82.5501 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12885,7 +12885,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint_Harwin"
+		(property "Value" "Test Point"
 			(at 246.38 149.86 0)
 			(effects
 				(font
@@ -12894,7 +12894,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "My Libraries:Harwin-S1751-46-Test-Point"
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
 			(at 251.46 144.78 0)
 			(effects
 				(font
@@ -13151,7 +13151,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint_Harwin"
+		(property "Value" "Test Point"
 			(at 201.93 55.88 0)
 			(effects
 				(font
@@ -13160,7 +13160,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "My Libraries:Harwin-S1751-46-Test-Point"
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
 			(at 207.01 50.8 0)
 			(effects
 				(font
@@ -13201,7 +13201,7 @@
 	)
 	(symbol
 		(lib_id "Switch:SW_SPST")
-		(at 168.91 21.59 0)
+		(at 168.91 25.4 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13210,23 +13210,23 @@
 		(fields_autoplaced yes)
 		(uuid "6fb3ebf5-3f3c-45df-9fb6-12893bbddfc7")
 		(property "Reference" "SW1"
-			(at 168.91 15.24 0)
+			(at 168.91 16.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "Reset"
-			(at 168.91 17.78 0)
+		(property "Value" "PTS810"
+			(at 168.91 19.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 168.91 21.59 0)
+		(property "Footprint" "Button_Switch_SMD:SW_SPST_PTS810"
+			(at 168.91 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13235,7 +13235,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 168.91 21.59 0)
+			(at 168.91 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13244,12 +13244,20 @@
 			)
 		)
 		(property "Description" "Single Pole Single Throw (SPST) switch"
-			(at 168.91 21.59 0)
+			(at 168.91 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
+			)
+		)
+		(property "Function" "Reset"
+			(at 168.91 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
 		)
 		(pin "2"
@@ -13354,7 +13362,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint_Harwin"
+		(property "Value" "Test Point"
 			(at 241.3 33.02 0)
 			(effects
 				(font
@@ -13363,7 +13371,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "My Libraries:Harwin-S1751-46-Test-Point"
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
 			(at 236.22 38.1 0)
 			(effects
 				(font
@@ -14431,7 +14439,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint_Harwin"
+		(property "Value" "Test Point"
 			(at 201.93 58.42 0)
 			(effects
 				(font
@@ -14440,7 +14448,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "My Libraries:Harwin-S1751-46-Test-Point"
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
 			(at 207.01 53.34 0)
 			(effects
 				(font
@@ -14496,7 +14504,7 @@
 				)
 			)
 		)
-		(property "Value" "TestPoint_Harwin"
+		(property "Value" "Test Point"
 			(at 201.93 25.4 0)
 			(effects
 				(font
@@ -14505,7 +14513,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "My Libraries:Harwin-S1751-46-Test-Point"
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
 			(at 207.01 20.32 0)
 			(effects
 				(font
