@@ -5,7 +5,8 @@
 	(uuid "174b8e0a-b401-4136-932e-0e7cbea9b080")
 	(paper "USLetter")
 	(title_block
-		(title "BaldSense")
+		(title "Bald SENSE")
+		(date "2024-06-26")
 		(rev "3")
 		(company "@baldengineer")
 	)
@@ -4796,6 +4797,12 @@
 		(uuid "d4745301-bb0f-4560-bf9d-716b241852a2")
 	)
 	(junction
+		(at 241.3 102.87)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e659160f-4e12-46bd-94ec-5bba77262d46")
+	)
+	(junction
 		(at 48.26 24.13)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4938,6 +4945,26 @@
 			(type default)
 		)
 		(uuid "0b969a59-8f63-4791-9cc2-94b3312a957b")
+	)
+	(wire
+		(pts
+			(xy 241.3 102.87) (xy 248.92 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0bea0020-87a1-43ad-a7fc-6f574d5f97a0")
+	)
+	(wire
+		(pts
+			(xy 233.68 102.87) (xy 241.3 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0c2def39-c489-4b21-a803-49199a628537")
 	)
 	(wire
 		(pts
@@ -5808,6 +5835,16 @@
 			(type default)
 		)
 		(uuid "88d66126-4bf6-4e7a-89d6-ce57d2abd4e4")
+	)
+	(wire
+		(pts
+			(xy 241.3 105.41) (xy 241.3 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8beed6e6-c615-468a-810c-2eaf984f3481")
 	)
 	(wire
 		(pts
@@ -12156,6 +12193,71 @@
 		)
 	)
 	(symbol
+		(lib_id "My Library:TestPoint_Harwin")
+		(at 198.12 45.72 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(uuid "1e599b08-af10-4b9b-94ff-1f74f38bce7b")
+		(property "Reference" "TP13"
+			(at 191.516 45.72 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Test Point"
+			(at 193.04 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 198.12 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 198.12 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 198.12 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "19981e37-cf4d-48d6-ad02-c2e57371aafb")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "TP13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3.3V")
 		(at 144.78 113.03 0)
 		(unit 1)
@@ -12485,6 +12587,71 @@
 		)
 	)
 	(symbol
+		(lib_id "My Library:TestPoint_Harwin")
+		(at 238.76 58.42 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(uuid "3a4bb61a-f137-4d0e-a2dd-e8de05fec698")
+		(property "Reference" "TP10"
+			(at 245.364 58.42 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Test Point"
+			(at 243.84 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 238.76 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 238.76 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 238.76 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "16ca26af-8143-480b-b979-cc9b4ee59c7e")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "TP10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3.3V")
 		(at 248.92 35.56 270)
 		(unit 1)
@@ -12677,6 +12844,71 @@
 			(project "Bald Sense Wing v3"
 				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
 					(reference "#PWR011")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 241.3 105.41 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "46210d44-3d09-4818-b224-16083f260bdb")
+		(property "Reference" "#PWR022"
+			(at 241.3 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 241.427 109.8042 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 241.3 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 241.3 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 241.3 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c968c60f-e5c1-40c0-af7c-81fb1b2859ac")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "#PWR022")
 					(unit 1)
 				)
 			)
@@ -13097,6 +13329,71 @@
 			(project "Bald Sense Wing v3"
 				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
 					(reference "#FLG01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "My Library:TestPoint_Harwin")
+		(at 198.12 43.18 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(uuid "69894d34-3f93-41b8-b393-f9193fde0426")
+		(property "Reference" "TP14"
+			(at 191.516 43.18 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Test Point"
+			(at 193.04 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 198.12 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 198.12 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 198.12 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "dee03203-849c-4335-912b-3a544d628f8f")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "TP14")
 					(unit 1)
 				)
 			)
@@ -13847,6 +14144,71 @@
 		)
 	)
 	(symbol
+		(lib_id "My Library:TestPoint_Harwin")
+		(at 198.12 40.64 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(uuid "93525583-2a2f-4d14-8a7f-f6bd4bfb80fc")
+		(property "Reference" "TP15"
+			(at 191.516 40.64 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Test Point"
+			(at 193.04 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 198.12 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 198.12 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 198.12 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "125171ec-3d2e-4826-a2ee-72c6838219ea")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "TP15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:PWR_FLAG")
 		(at 201.93 22.86 0)
 		(unit 1)
@@ -14124,6 +14486,71 @@
 		)
 	)
 	(symbol
+		(lib_id "My Library:TestPoint_Harwin")
+		(at 241.3 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(uuid "a12f1f56-3738-4df1-9064-1cc1489ad809")
+		(property "Reference" "TP17"
+			(at 241.3 96.266 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Test Point"
+			(at 241.3 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 246.38 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 246.38 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 241.3 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0678cd91-e91d-47f9-8d4f-7f5ba0bdb21c")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "TP17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_Small")
 		(at 151.13 92.71 180)
 		(unit 1)
@@ -14194,6 +14621,71 @@
 		)
 	)
 	(symbol
+		(lib_id "My Library:TestPoint_Harwin")
+		(at 198.12 48.26 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(uuid "b2190871-6b10-4b78-98aa-20350299135f")
+		(property "Reference" "TP12"
+			(at 191.516 48.26 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Test Point"
+			(at 193.04 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 198.12 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 198.12 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 198.12 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bd454143-d177-4395-a23e-a87d75c6d6ea")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "TP12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3.3V")
 		(at 119.38 139.7 90)
 		(unit 1)
@@ -14253,6 +14745,136 @@
 			(project "Bald Sense Wing v3"
 				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
 					(reference "#PWR01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "My Library:TestPoint_Harwin")
+		(at 198.12 50.8 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(uuid "c73aa237-6eef-42ff-9c44-1baebbd7f964")
+		(property "Reference" "TP11"
+			(at 191.516 50.8 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Test Point"
+			(at 193.04 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 198.12 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 198.12 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 198.12 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f7d168c9-0d57-4638-9350-3e7bc4bd1769")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "TP11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "My Library:TestPoint_Harwin")
+		(at 233.68 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(uuid "cdb675cd-9bf4-41de-a17a-437c994be137")
+		(property "Reference" "TP16"
+			(at 233.68 96.266 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Test Point"
+			(at 233.68 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 238.76 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 238.76 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 233.68 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0917a014-c093-4970-b879-26f114f1a96a")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "TP16")
 					(unit 1)
 				)
 			)
@@ -14385,6 +15007,71 @@
 			(project "Bald Sense Wing v3"
 				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
 					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "My Library:TestPoint_Harwin")
+		(at 238.76 55.88 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(uuid "dc6bce96-4362-4c03-98d8-494bf6ece436")
+		(property "Reference" "TP9"
+			(at 245.364 55.88 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Test Point"
+			(at 243.84 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 238.76 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 238.76 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 238.76 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "43959bfa-3b1f-40ca-b627-538154c10dd6")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "TP9")
 					(unit 1)
 				)
 			)
@@ -14648,6 +15335,71 @@
 			(project "Bald Sense Wing v3"
 				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
 					(reference "TP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "My Library:TestPoint_Harwin")
+		(at 248.92 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(uuid "fa9d2575-a594-4af7-a534-0592252a0aa1")
+		(property "Reference" "TP18"
+			(at 248.92 96.266 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Test Point"
+			(at 248.92 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 254 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 254 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 248.92 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4b22fcef-0145-4e77-b76e-03d34604a8b5")
+		)
+		(instances
+			(project "Bald Sense Wing v3"
+				(path "/174b8e0a-b401-4136-932e-0e7cbea9b080"
+					(reference "TP18")
 					(unit 1)
 				)
 			)
