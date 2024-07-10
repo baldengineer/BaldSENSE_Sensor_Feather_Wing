@@ -31,3 +31,7 @@ hardware/#auto_saved_files#
 # Auto backup
 *.zip
 hardware/sym-lib-table
+hardware/~Bald Sense Wing v3.kicad_pcb.lck
+hardware/~Bald Sense Wing v3.kicad_sch.lck
+*.7z
+*.kicad_sch-bak

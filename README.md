@@ -1,23 +1,21 @@
-![render of SHlT feather wing](/images/Bald%20Sense%20Wing%20v1-second%20pass%20layout-ray.png)
+![render of BaldSENSE Sensor Feather Wing](/images/bald_sense_wing_v3.jpg)
 
-## SHlT Feather Wing
-Project to fit a temperature, humidity, light, and sound sensor to an Adafruit Feather board.
+## BaldSense Sensor Feather Wing
+Project to fit a temperature, humidity, light, and sound sensor to an Adafruit Feather wing form factor.
 
-All other sensor boards include acceleratormeters, pressure sensors, and gyrometers. This board is meant to be a more minimal sensor board, ideal for characterizing a known place. Like a house.
+Minimal environmental sensor board for characterizing a specific location. 
 
-### BaldSense, THLS, SHlT -- what is the name?
-When I started the board, I called it the "BaldSense" board. And then I named it THLS which stood for **T**emperature, **H**umidity, **L**ight, and **S**ound.
+## Sensors Included:
+- **Temp / Humidity**: 
+    - SHT30-DIS-B2.5KS
+- **Light**: 
+    - APDS9960
+- **Sound (Mic)**: 
+    - MP34DT01TR-M
+- **Real-Time Clock (RTC)**: 
+    - DS3231S
 
-We did the design and testing as a series of livestreams. Chat suggested the alternative name: "SHlT" but for some reason, insisted that the `L` be lower case... ?
+## Status: Work In Progress
+Originally created as a livestream project. Being updated for a long-term IoT project. 
 
-
-## Sensors Being used:
--Temp / Humidity: SHT30-DIS-B2.5KS
--Light: APDS9960
--Sound: MP34DT01TR-M
--RTC: DS3231S
--Coin Cell Holder CR2032
--Micro SD Card Socket
-
-## For more information:
-https://twitch.tv/baldengineer
+V3 board fixes many issues with v1 and v2, but has not been tested yet.
