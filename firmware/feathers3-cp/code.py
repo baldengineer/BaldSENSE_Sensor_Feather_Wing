@@ -2,7 +2,11 @@ import time, gc, os
 import neopixel
 import board, digitalio, busio
 import feathers3
+
+# Sensors
 import adafruit_sht31d
+from adafruit_apds9960.apds9960 import APDS9960
+from adafruit_apds9960 import colorutility
 
 print("\nbaldSENSE FeatherS3 A")
 print("\n---------------------")
@@ -24,7 +28,7 @@ except Exception as e:
 
 # SHT30, 31, and 35 vary in accuracy
 # BaldSENSE has a SHT30 (+/-0.2 from 0 to 65C)
-def get_temperature(sensor):
+def get_temperature(sensor): #sht30
     try:
         reading = sensor.temperature
     except Exception as e:
@@ -32,7 +36,7 @@ def get_temperature(sensor):
         reading = None
     return reading
 
-def get_humidity(sensor):
+def get_humidity(sensor): #sht30
     try:
         reading = sensor.relative_humidity
     except Exception as e:
@@ -40,14 +44,45 @@ def get_humidity(sensor):
         reading = None
     return reading
 
+def get_color_data(sensor): #adps9660
+    #print ("Getting color data.")
+    sensor.enable_color = True
+    while not sensor.color_data_ready:
+        time.sleep(0.005)
+    
+    # get the data
+    return sensor.color_data
+
+def get_color_temp(color_data):
+    r, g, b, c = color_data
+    color_temp = colorutility.calculate_color_temperature(r, g, b)
+    #print("color temp {}".format(color_temp))
+    return color_temp
+
+def get_light_lux(color_data):
+    r, g, b, c = color_data
+    lux = colorutility.calculate_lux(r, g, b)
+    #print("light lux {}".format(lux))
+    return lux
 
 def main():
-    sensor = adafruit_sht31d.SHT31D(i2c) 
-    sensor.heater = False # draws up to 33 mW when on
+    # Temperature / Humidity
+    sht30 = adafruit_sht31d.SHT31D(i2c) 
+    sht30.heater = False # draws up to 33 mW when on
+
+    # Light
+    apds = APDS9960(i2c)
+    apds.enable_proximity = True
+    get_color_data(apds)
 
     while True:
-        print("\nTemperature: %0.1f C" % sensor.temperature)
-        print("Humidity: %0.1f %%" % sensor.relative_humidity)
+        print("\nTemperature : %0.1f C" % get_temperature(sht30))
+        print("Humidity    : %0.1f %%" % get_humidity(sht30))
+
+        print(f"Proximity  : {apds.proximity}")
+        print(f"Color Temp : {get_color_temp(get_color_data(apds))}")
+        print(f"Light Lux  : {get_light_lux(get_color_data(apds))}")
+
         time.sleep(2)
 
 if (__name__ == '__main__'):
