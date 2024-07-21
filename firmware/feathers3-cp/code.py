@@ -1,13 +1,13 @@
 import time, gc, os
-import neopixel
-import board, digitalio, busio
 import feathers3
+import neopixel
+import board, analogio, digitalio, busio
+import sys, supervisor
 
 # Sensors
 import adafruit_sht31d
 from adafruit_apds9960.apds9960 import APDS9960
 from adafruit_apds9960 import colorutility
-import analogio
 import adafruit_ds3231
 import sdcardio, storage # sd card
 
@@ -16,7 +16,12 @@ import wifi, socketpool
 import adafruit_minimqtt.adafruit_minimqtt as MQTT
 #import ssl The S in IoT is for security
 
-print("\nbaldSENSE FeatherS3 A")
+# Deep Sleep
+import alarm
+
+sense_id = "A"
+
+print(f"\nbaldSENSE FeatherS3 sense_id")
 print("\n---------------------")
 
 print ("Enable Sense") # Sense Enable is IO11 (D13)
@@ -34,8 +39,19 @@ except Exception as e:
     while(True):
         pass
 
+# ds3231 (RTC)
 print("Enable RTC")
 rtc = adafruit_ds3231.DS3231(i2c)
+
+print("Enable SHT30")
+# Temperature / Humidity
+sht30 = adafruit_sht31d.SHT31D(i2c) 
+sht30.heater = False # draws up to 33 mW when on
+
+print("Enable APDS-9660")
+# Light
+apds = APDS9960(i2c)
+apds.enable_proximity = True
 
 print("Enable SPI")
 spi = board.SPI()
@@ -46,21 +62,30 @@ sd_cd = digitalio.DigitalInOut(board.D18)
 sd_cd.direction = digitalio.Direction.INPUT
 sd_cd.pull = digitalio.Pull.UP
 
-print("WiFi/MQTT Stuff")
+print("Setup dividers")
+# Battery / VUSB
+meas_batt_en = digitalio.DigitalInOut(board.D16)
+batt_meas = analogio.AnalogIn(board.A1)
+vusb_meas = analogio.AnalogIn(board.A0)
+
+print("Connect to MQTT Broker")
 
 mqtt_broker = os.getenv("MQTT_BROKER")
 wifi_ssid = os.getenv("WIFI_SSID")
 wifi_password = os.getenv("WIFI_PASSWORD")
 mqtt_feed = "incoming"
 print(f"broker: {mqtt_broker}")
-wifi.radio.connect(ssid=wifi_ssid, password=wifi_password)
-if (wifi.radio.connected):
-    print(f"Wifi Status: {wifi.radio.connected}")
-    print(f"ssid: {wifi.radio.ap_info.ssid}")
-    print(f"rssi: {wifi.radio.ap_info.rssi}")
-    print(f"chan: {wifi.radio.ap_info.channel}")
-else:
-    print("WiFi failed")
+try:
+    wifi.radio.connect(ssid=wifi_ssid, password=wifi_password, timeout=60)
+    if (wifi.radio.connected):
+        print(f"Wifi Status: {wifi.radio.connected}")
+        print(f"ssid: {wifi.radio.ap_info.ssid}")
+        print(f"rssi: {wifi.radio.ap_info.rssi}")
+        print(f"chan: {wifi.radio.ap_info.channel}")
+    else:
+        print("WiFi failed")
+except:
+    print("WiFi Failed")
 
 def mqtt_connected(client, userdata, flags, rc):
     # This function will be called when the client is connected
@@ -107,7 +132,6 @@ class USBSerialReader:
     def __init__(self):
         self.s = ''
     def read(self,end_char='\n', echo=True):
-        import sys, supervisor
         n = supervisor.runtime.serial_bytes_available
         
         while(n > 0):                # we got bytes!
@@ -217,20 +241,46 @@ def process_time_string(str):
         print(f"Time String Contains: {elements} fields")
         print("Time string should contain: tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec, tm_wday, tm_yday, tm_isdst")
         #T2024,07,20,17,30,30,6,-1,-1
+
+def shutdown_sensors():
+    global sense_enable
+    global sht30
+    global apds
+    global meas_batt_en
+    global batt_meas
+    global vusb_meas
+    global rtc
+
+    # sht30.deinit()
+    # apds.deinit()
+    # rtc.deinit()
+    spi.deinit()
+    i2c.deinit()
+    meas_batt_en.direction = digitalio.Direction.INPUT
+    print("Turning off Wing")
+    sense_enable.direction = digitalio.Direction.INPUT
+    return
+
 def handle_serial(usb_serial_in):
     incoming_string = usb_serial_in.read()  # read until newline, echo back chars
     #mystr = usb_reader.read(end_char='\t', echo=False) # trigger on tab, no echo
     if incoming_string:
-        print("got:",incoming_string)
-        # do we need to update rtc?
-        if (incoming_string[0].upper() == 'T'):
-            process_time_string(incoming_string)
-        if (incoming_string[0].upper() == 'W'):
-            print("WiFi Scan")
-            for network in wifi.radio.start_scanning_networks():
-                print(network, network.ssid, network.channel)
-            wifi.radio.stop_scanning_networks()
-
+        incoming_string = incoming_string.strip()
+        print(f"got:[{incoming_string}]")
+        if (len(incoming_string) > 0):
+            # do we need to update rtc?
+            if (incoming_string[0].upper() == 'T'):
+                process_time_string(incoming_string)
+            if (incoming_string[0].upper() == 'W'):
+                print("WiFi Scan")
+                for network in wifi.radio.start_scanning_networks():
+                    print(network, network.ssid, network.channel)
+                wifi.radio.stop_scanning_networks()
+            if (incoming_string.upper() == "STOP"):
+                print("Stopping...")
+                shutdown_sensors()
+                while True:
+                    pass
 
 
 def write_to_sd(str_to_write):
@@ -262,64 +312,78 @@ def build_csv(values):
 
 ### Main
 def main():
-    # Temperature / Humidity
-    sht30 = adafruit_sht31d.SHT31D(i2c) 
-    sht30.heater = False # draws up to 33 mW when on
+    global sense_id
+    global sense_enable
+    global sht30
+    global apds
+    global meas_batt_en
+    global batt_meas
+    global vusb_meas
+    global rtc
 
-    # Light
-    apds = APDS9960(i2c)
-    apds.enable_proximity = True
-    get_color_data(apds)
-
-    # Battery / VUSB
-    meas_batt_en = digitalio.DigitalInOut(board.D16)
-    batt_meas = analogio.AnalogIn(board.A1)
-    vusb_meas = analogio.AnalogIn(board.A0)
-
-    # ds3231 (RTC)
     usb_reader = USBSerialReader()
+    sleep_time = int(os.getenv("SLEEP_SECONDS"))
+#    while True:
 
-    write_to_sd("---Boot---")
-
-    while True:
-        handle_serial(usb_reader)
+    handle_serial(usb_reader)
+    if (wifi.radio.connected):
         mqtt_client.loop(timeout=1)
 
-        c_temperature = get_temperature(sht30)
-        c_humidity = get_humidity(sht30)
-        c_proximity = apds.proximity
-        c_color_temp = get_color_temp(get_color_data(apds))
-        c_light_lux = get_light_lux(get_color_data(apds))
-        c_batt_level = get_adc_levels(batt_meas, meas_batt_en)  
-        c_VUSB_level = get_adc_levels(vusb_meas)
-        c_rtc_temp = get_rtc_temperature(rtc)
-        c_date_string = get_date_time_string(rtc)
-        
-        # sht30
-        print("\nTemperature  : %0.1f C" % c_temperature)
-        print("Humidity     : %0.1f %%" % c_humidity)
+    c_temperature = get_temperature(sht30)
+    c_humidity = get_humidity(sht30)
+    c_proximity = apds.proximity
+    c_color_temp = get_color_temp(get_color_data(apds))
+    c_light_lux = get_light_lux(get_color_data(apds))
+    c_batt_level = get_adc_levels(batt_meas, meas_batt_en)  
+    c_VUSB_level = get_adc_levels(vusb_meas)
+    c_rtc_temp = get_rtc_temperature(rtc)
+    c_date_string = get_date_time_string(rtc)
+    c_supervisor_ticks = supervisor.ticks_ms()
 
-        # apds-9660
-        print(f"Proximity    : {c_proximity}")
-        print(f"Color Temp   : {c_color_temp}")
-        print(f"Light Lux    : {c_light_lux}")
-        
-        # voltage dividers         
-        print(f"Battery Volt : {c_batt_level}, {convert_adc_voltage(c_batt_level)}V")
-        print(f"VUSB Volt    : {c_VUSB_level}, {convert_adc_voltage(c_VUSB_level)}V")
+    print(f"\nSuperV Ticks : {c_supervisor_ticks}")
+    # sht30
+    print("Temperature  : %0.1f C" % c_temperature)
+    print("Humidity     : %0.1f %%" % c_humidity)
 
-        # rtc
-        print(f"Date / Time  : {c_date_string[0]} {c_date_string[1]}")
-        print(f"RTC temp     : {c_rtc_temp} C")
+    # apds-9660
+    print(f"Proximity    : {c_proximity}")
+    print(f"Color Temp   : {c_color_temp}")
+    print(f"Light Lux    : {c_light_lux}")
+    
+    # voltage dividers         
+    print(f"Battery Volt : {c_batt_level}, {convert_adc_voltage(c_batt_level)}V")
+    print(f"VUSB Volt    : {c_VUSB_level}, {convert_adc_voltage(c_VUSB_level)}V")
 
-        # other
-        print(f"RAM Free     : {get_free_memory():,}")
-        
-        current_values = (c_date_string[0],c_date_string[1], c_temperature,c_humidity,c_proximity,c_color_temp,c_light_lux,c_batt_level,c_VUSB_level,c_rtc_temp,str(get_free_memory()))
+    # rtc
+    print(f"Date / Time  : {c_date_string[0]} {c_date_string[1]}")
+    print(f"RTC temp     : {c_rtc_temp} C")
 
-        write_to_sd(build_csv(current_values))
-        mqtt_client.publish("incoming",str(current_values))
-        time.sleep(5)
+    # other
+    print(f"RAM Free     : {get_free_memory():,}")
+   
+    # do the internet and local things
+    current_values = (c_supervisor_ticks,sense_id,c_date_string[0],c_date_string[1], c_temperature,c_humidity,c_proximity,c_color_temp,c_light_lux,c_batt_level,c_VUSB_level,c_rtc_temp,str(get_free_memory()))
+    mqtt_success=0
+    if (wifi.radio.connected):
+        try:
+            mqtt_client.publish("pub/balda",str(current_values))
+            print("Published to MQTT Successful")
+            mqtt_success = 1
+        except Exception as e:
+            print("Published to MQTT Failed")
+            print(e)
+            mqtt_success = 0
+    current_values = current_values + (mqtt_success,)
+    current_values = current_values + (str(wifi.radio.connected),)
+    write_to_sd(build_csv(current_values))
+   
+    #time.sleep(5)
+    return
+
 
 if (__name__ == '__main__'):
     main()
+    shutdown_sensors()
+    # preserve_dios is available on Espressif Targets...
+    time_alarm = alarm.time.TimeAlarm(monotonic_time=time.monotonic() + 60)
+    alarm.exit_and_deep_sleep_until_alarms(time_alarm)
