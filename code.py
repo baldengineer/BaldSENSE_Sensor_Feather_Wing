@@ -1,14 +1,13 @@
 import time, gc, os
-import neopixel
-import board, digitalio, busio
 import feathers3
+import neopixel
+import board, analogio, digitalio, busio
 import sys, supervisor
 
 # Sensors
 import adafruit_sht31d
 from adafruit_apds9960.apds9960 import APDS9960
 from adafruit_apds9960 import colorutility
-import analogio
 import adafruit_ds3231
 import sdcardio, storage # sd card
 
@@ -16,6 +15,9 @@ import sdcardio, storage # sd card
 import wifi, socketpool
 import adafruit_minimqtt.adafruit_minimqtt as MQTT
 #import ssl The S in IoT is for security
+
+# Deep Sleep
+import alarm
 
 sense_id = "A"
 
@@ -317,56 +319,63 @@ def main():
     global rtc
 
     usb_reader = USBSerialReader()
-    while True:
-        handle_serial(usb_reader)
-        mqtt_client.loop(timeout=1)
+#    while True:
 
-        c_temperature = get_temperature(sht30)
-        c_humidity = get_humidity(sht30)
-        c_proximity = apds.proximity
-        c_color_temp = get_color_temp(get_color_data(apds))
-        c_light_lux = get_light_lux(get_color_data(apds))
-        c_batt_level = get_adc_levels(batt_meas, meas_batt_en)  
-        c_VUSB_level = get_adc_levels(vusb_meas)
-        c_rtc_temp = get_rtc_temperature(rtc)
-        c_date_string = get_date_time_string(rtc)
-        c_supervisor_ticks = supervisor.ticks_ms()
+    handle_serial(usb_reader)
+    mqtt_client.loop(timeout=1)
 
-        print(f"\nSuperV Ticks : {c_supervisor_ticks}")
-        # sht30
-        print("Temperature  : %0.1f C" % c_temperature)
-        print("Humidity     : %0.1f %%" % c_humidity)
+    c_temperature = get_temperature(sht30)
+    c_humidity = get_humidity(sht30)
+    c_proximity = apds.proximity
+    c_color_temp = get_color_temp(get_color_data(apds))
+    c_light_lux = get_light_lux(get_color_data(apds))
+    c_batt_level = get_adc_levels(batt_meas, meas_batt_en)  
+    c_VUSB_level = get_adc_levels(vusb_meas)
+    c_rtc_temp = get_rtc_temperature(rtc)
+    c_date_string = get_date_time_string(rtc)
+    c_supervisor_ticks = supervisor.ticks_ms()
 
-        # apds-9660
-        print(f"Proximity    : {c_proximity}")
-        print(f"Color Temp   : {c_color_temp}")
-        print(f"Light Lux    : {c_light_lux}")
-        
-        # voltage dividers         
-        print(f"Battery Volt : {c_batt_level}, {convert_adc_voltage(c_batt_level)}V")
-        print(f"VUSB Volt    : {c_VUSB_level}, {convert_adc_voltage(c_VUSB_level)}V")
+    print(f"\nSuperV Ticks : {c_supervisor_ticks}")
+    # sht30
+    print("Temperature  : %0.1f C" % c_temperature)
+    print("Humidity     : %0.1f %%" % c_humidity)
 
-        # rtc
-        print(f"Date / Time  : {c_date_string[0]} {c_date_string[1]}")
-        print(f"RTC temp     : {c_rtc_temp} C")
+    # apds-9660
+    print(f"Proximity    : {c_proximity}")
+    print(f"Color Temp   : {c_color_temp}")
+    print(f"Light Lux    : {c_light_lux}")
+    
+    # voltage dividers         
+    print(f"Battery Volt : {c_batt_level}, {convert_adc_voltage(c_batt_level)}V")
+    print(f"VUSB Volt    : {c_VUSB_level}, {convert_adc_voltage(c_VUSB_level)}V")
 
-        # other
-        print(f"RAM Free     : {get_free_memory():,}")
-       
-        # do the internet and local things
-        current_values = (c_supervisor_ticks,sense_id,c_date_string[0],c_date_string[1], c_temperature,c_humidity,c_proximity,c_color_temp,c_light_lux,c_batt_level,c_VUSB_level,c_rtc_temp,str(get_free_memory()))
-        try:
-            mqtt_client.publish("pub/balda",str(current_values))
-            print("Published to MQTT Successful")
-            mqtt_success = 1
-        except Exception as e:
-            print("Published to MQTT Failed")
-            print(e)
-            mqtt_success = 0
-        current_values = current_values + (mqtt_success,)
-        write_to_sd(build_csv(current_values))
-       
-        time.sleep(5)
+    # rtc
+    print(f"Date / Time  : {c_date_string[0]} {c_date_string[1]}")
+    print(f"RTC temp     : {c_rtc_temp} C")
+
+    # other
+    print(f"RAM Free     : {get_free_memory():,}")
+   
+    # do the internet and local things
+    current_values = (c_supervisor_ticks,sense_id,c_date_string[0],c_date_string[1], c_temperature,c_humidity,c_proximity,c_color_temp,c_light_lux,c_batt_level,c_VUSB_level,c_rtc_temp,str(get_free_memory()))
+    try:
+        mqtt_client.publish("pub/balda",str(current_values))
+        print("Published to MQTT Successful")
+        mqtt_success = 1
+    except Exception as e:
+        print("Published to MQTT Failed")
+        print(e)
+        mqtt_success = 0
+    current_values = current_values + (mqtt_success,)
+    write_to_sd(build_csv(current_values))
+   
+    #time.sleep(5)
+    return
+
 
 if (__name__ == '__main__'):
     main()
+    shutdown_sensors()
+    # preserve_dios is available on Espressif Targets...
+    time_alarm = alarm.time.TimeAlarm(monotonic_time=time.monotonic() + 60)
+    alarm.exit_and_deep_sleep_until_alarms(time_alarm)
