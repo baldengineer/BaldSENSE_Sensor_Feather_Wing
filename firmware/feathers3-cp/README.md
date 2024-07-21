@@ -10,5 +10,11 @@ You'll need a bunch of CircuitPython libraries from Adafruit to support the sens
 
 - List TBD
 
+## mqtt_logger.py
+Simple script to log MQTT messages to a file. Works well on Linux. 
+
+## generate_time_string.py
+Simple script to create a string with the system's current time to update the RTC. Copy/paste the string and press enter (line return). (You may need to re-enable the `while True` loop to get the timing right.)
+
 ## Sponsor
 The PCB, components, and assembly for rev 3 have been provided by [MacroFab](https://macrofab.com).

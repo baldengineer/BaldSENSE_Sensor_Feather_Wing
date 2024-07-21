@@ -7,6 +7,8 @@ mqtt_broker = "benchpi"
 mqtt_port = 1883
 mqtt_topic = "pub/balda"
 
+log_filename="mqtt.log"
+
 # MQTT client setup
 mqtt_client = mqtt.Client()
 
@@ -15,7 +17,9 @@ def on_message(client, userdata, message):
     process_payload(message_text)
 
 def process_payload(payload):
-    print(payload)
+    with open(log_filename, "a") as myfile:
+        print(payload)
+        myfile.write(payload)
 
 # Set up MQTT client callbacks
 mqtt_client.on_message = on_message
