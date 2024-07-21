@@ -9,6 +9,7 @@ from adafruit_apds9960.apds9960 import APDS9960
 from adafruit_apds9960 import colorutility
 import analogio
 import adafruit_ds3231
+import sdcardio, storage # sd card
 
 print("\nbaldSENSE FeatherS3 A")
 print("\n---------------------")
@@ -30,6 +31,15 @@ except Exception as e:
 
 print("Enable RTC")
 rtc = adafruit_ds3231.DS3231(i2c)
+
+print("Enable SPI")
+spi = board.SPI()
+
+print("Setup sdcard pins")
+sd_cs = board.D19 #sdcardio needs pin object
+sd_cd = digitalio.DigitalInOut(board.D18)
+sd_cd.direction = digitalio.Direction.INPUT
+sd_cd.pull = digitalio.Pull.UP
 
 # Modified From todbot's CircuitPython Tricks
 # changed if to while so we get the entire string
@@ -157,6 +167,27 @@ def handle_serial(usb_serial_in):
         if (incoming_string[0].upper() == 'T'):
             process_time_string(incoming_string)
 
+
+def write_to_sd(str_to_write):
+    global spi
+    global sd_cd
+
+    # sd_cd.value = False when card is detected
+    if (sd_cd.value == False): 
+        try:
+            sdcard = sdcardio.SDCard(spi,sd_cs)
+            vfs = storage.VfsFat(sdcard)
+            storage.mount(vfs, "/sd")
+            with open("/sd/sense_boot.txt","a") as f:
+                f.write(f"{str_to_write}\r\n")
+            storage.umount(vfs)
+            sdcard.deinit()
+        except Exception as e:
+            print("[!!!] SD Card Mount Failed")
+            print(e)
+    else:
+        print("[!] Card not detected")
+
 ### Main
 def main():
     # Temperature / Humidity
@@ -175,6 +206,8 @@ def main():
 
     # ds3231 (RTC)
     usb_reader = USBSerialReader()
+
+    write_to_sd("Hi there")
 
     while True:
         handle_serial(usb_reader)
@@ -203,7 +236,8 @@ def main():
         flash_size = get_flash_size()
         print(f"Flash Free   : {flash_size[0]:,}")
         print(f"Flash Size   : {flash_size[1]:,}")
-        time.sleep(2)
+        write_to_sd("csv incoming")
+        time.sleep(5)
 
 if (__name__ == '__main__'):
     main()
