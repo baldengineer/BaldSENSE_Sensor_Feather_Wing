@@ -11,6 +11,10 @@ import analogio
 import adafruit_ds3231
 import sdcardio, storage # sd card
 
+# Adafruit MQTT broker example
+import wifi
+
+
 print("\nbaldSENSE FeatherS3 A")
 print("\n---------------------")
 
@@ -40,6 +44,13 @@ sd_cs = board.D19 #sdcardio needs pin object
 sd_cd = digitalio.DigitalInOut(board.D18)
 sd_cd.direction = digitalio.Direction.INPUT
 sd_cd.pull = digitalio.Pull.UP
+
+print("WiFi Stuff")
+mqtt_broker = os.getenv("MQTT_BROKER")
+wifi_ssid = os.getenv("WIFI_SSID")
+wifi_password = os.getenv("WIFI_PASSWORD")
+print(f"broker: {mqtt_broker}")
+wifi.radio.connect(ssid=wifi_ssid, password=wifi_password)
 
 # Modified From todbot's CircuitPython Tricks
 # changed if to while so we get the entire string
@@ -166,6 +177,12 @@ def handle_serial(usb_serial_in):
         # do we need to update rtc?
         if (incoming_string[0].upper() == 'T'):
             process_time_string(incoming_string)
+        if (incoming_string[0].upper() == 'W'):
+            print("WiFi Scan")
+            for network in wifi.radio.start_scanning_networks():
+                print(network, network.ssid, network.channel)
+            wifi.radio.stop_scanning_networks()
+
 
 
 def write_to_sd(str_to_write):
@@ -246,13 +263,10 @@ def main():
         print(f"Date / Time  : {c_date_string[0]} {c_date_string[1]}")
         print(f"RTC temp     : {c_rtc_temp} C")
 
-        # # other
-        # print(f"RAM Free     : {get_free_memory():,}")
-        # flash_size = get_flash_size()
-        # print(f"Flash Free   : {flash_size[0]:,}")
-        # print(f"Flash Size   : {flash_size[1]:,}")
-
-        current_values = (c_date_string[0],c_date_string[1], c_temperature,c_humidity,c_proximity,c_color_temp,c_light_lux,c_batt_level,c_VUSB_level,c_rtc_temp)
+        # other
+        print(f"RAM Free     : {get_free_memory():,}")
+        
+        current_values = (c_date_string[0],c_date_string[1], c_temperature,c_humidity,c_proximity,c_color_temp,c_light_lux,c_batt_level,c_VUSB_level,c_rtc_temp,str(get_free_memory()))
 
         write_to_sd(build_csv(current_values))
         time.sleep(5)
