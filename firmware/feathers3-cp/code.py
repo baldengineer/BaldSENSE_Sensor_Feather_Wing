@@ -12,8 +12,9 @@ import adafruit_ds3231
 import sdcardio, storage # sd card
 
 # Adafruit MQTT broker example
-import wifi
-
+import wifi, socketpool
+import adafruit_minimqtt.adafruit_minimqtt as MQTT
+#import ssl The S in IoT is for security
 
 print("\nbaldSENSE FeatherS3 A")
 print("\n---------------------")
@@ -45,12 +46,59 @@ sd_cd = digitalio.DigitalInOut(board.D18)
 sd_cd.direction = digitalio.Direction.INPUT
 sd_cd.pull = digitalio.Pull.UP
 
-print("WiFi Stuff")
+print("WiFi/MQTT Stuff")
+
 mqtt_broker = os.getenv("MQTT_BROKER")
 wifi_ssid = os.getenv("WIFI_SSID")
 wifi_password = os.getenv("WIFI_PASSWORD")
+mqtt_feed = "incoming"
 print(f"broker: {mqtt_broker}")
 wifi.radio.connect(ssid=wifi_ssid, password=wifi_password)
+if (wifi.radio.connected):
+    print(f"Wifi Status: {wifi.radio.connected}")
+    print(f"ssid: {wifi.radio.ap_info.ssid}")
+    print(f"rssi: {wifi.radio.ap_info.rssi}")
+    print(f"chan: {wifi.radio.ap_info.channel}")
+else:
+    print("WiFi failed")
+
+def mqtt_connected(client, userdata, flags, rc):
+    # This function will be called when the client is connected
+    # successfully to the broker.
+    print(f"Connected to {mqtt_broker}!")
+    print(f"Listening for topic changes on {mqtt_feed}")
+
+    # Subscribe to all changes on the onoff_feed.
+    client.subscribe(mqtt_feed)
+
+def mqtt_disconnected(client, userdata, rc):
+    # This method is called when the client is disconnected
+    print(f"Disconnected from {mqtt_broker}")
+
+def mqtt_message(client, topic, message):
+    # This method is called when a topic the client is subscribed to
+    # has a new message.
+    print(f"New message on topic {topic}: {message}")
+
+
+# Create a socket pool
+pool = socketpool.SocketPool(wifi.radio)
+
+# Set up a MiniMQTT Client
+mqtt_client = MQTT.MQTT(
+    broker=mqtt_broker,
+    port=1883,
+    socket_pool=pool
+)
+
+# Setup the callback methods above
+mqtt_client.on_connect = mqtt_connected
+mqtt_client.on_disconnect = mqtt_disconnected
+mqtt_client.on_message = mqtt_message
+
+# Connect the client to the MQTT broker.
+print("Connecting to MQTT Broker...")
+mqtt_client.connect()
 
 # Modified From todbot's CircuitPython Tricks
 # changed if to while so we get the entire string
@@ -235,6 +283,7 @@ def main():
 
     while True:
         handle_serial(usb_reader)
+        mqtt_client.loop(timeout=1)
 
         c_temperature = get_temperature(sht30)
         c_humidity = get_humidity(sht30)
@@ -269,6 +318,7 @@ def main():
         current_values = (c_date_string[0],c_date_string[1], c_temperature,c_humidity,c_proximity,c_color_temp,c_light_lux,c_batt_level,c_VUSB_level,c_rtc_temp,str(get_free_memory()))
 
         write_to_sd(build_csv(current_values))
+        mqtt_client.publish("incoming",str(current_values))
         time.sleep(5)
 
 if (__name__ == '__main__'):
