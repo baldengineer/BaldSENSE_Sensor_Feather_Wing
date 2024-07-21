@@ -178,7 +178,7 @@ def write_to_sd(str_to_write):
             sdcard = sdcardio.SDCard(spi,sd_cs)
             vfs = storage.VfsFat(sdcard)
             storage.mount(vfs, "/sd")
-            with open("/sd/sense_boot.txt","a") as f:
+            with open("/sd/log.txt","a") as f:
                 f.write(f"{str_to_write}\r\n")
             storage.umount(vfs)
             sdcard.deinit()
@@ -187,6 +187,13 @@ def write_to_sd(str_to_write):
             print(e)
     else:
         print("[!] Card not detected")
+
+def build_csv(values):
+    csv_str = ""
+    for element in values:
+        csv_str = csv_str + "," + str(element)
+    #print(csv_str)
+    return csv_str.lstrip(",")
 
 ### Main
 def main():
@@ -207,36 +214,47 @@ def main():
     # ds3231 (RTC)
     usb_reader = USBSerialReader()
 
-    write_to_sd("Hi there")
+    write_to_sd("---Boot---")
 
     while True:
         handle_serial(usb_reader)
+
+        c_temperature = get_temperature(sht30)
+        c_humidity = get_humidity(sht30)
+        c_proximity = apds.proximity
+        c_color_temp = get_color_temp(get_color_data(apds))
+        c_light_lux = get_light_lux(get_color_data(apds))
+        c_batt_level = get_adc_levels(batt_meas, meas_batt_en)  
+        c_VUSB_level = get_adc_levels(vusb_meas)
+        c_rtc_temp = get_rtc_temperature(rtc)
+        c_date_string = get_date_time_string(rtc)
+        
         # sht30
-        print("\nTemperature  : %0.1f C" % get_temperature(sht30))
-        print("Humidity     : %0.1f %%" % get_humidity(sht30))
+        print("\nTemperature  : %0.1f C" % c_temperature)
+        print("Humidity     : %0.1f %%" % c_humidity)
 
         # apds-9660
-        print(f"Proximity    : {apds.proximity}")
-        print(f"Color Temp   : {get_color_temp(get_color_data(apds))}")
-        print(f"Light Lux    : {get_light_lux(get_color_data(apds))}")
+        print(f"Proximity    : {c_proximity}")
+        print(f"Color Temp   : {c_color_temp}")
+        print(f"Light Lux    : {c_light_lux}")
         
-        # voltage dividers
-        batt_level = get_adc_levels(batt_meas, meas_batt_en)       
-        print(f"Battery Volt : {batt_level}, {convert_adc_voltage(batt_level)}V")
-        VUSB_level = get_adc_levels(vusb_meas)
-        print(f"VUSB Volt    : {VUSB_level}, {convert_adc_voltage(VUSB_level)}V")
+        # voltage dividers         
+        print(f"Battery Volt : {c_batt_level}, {convert_adc_voltage(c_batt_level)}V")
+        print(f"VUSB Volt    : {c_VUSB_level}, {convert_adc_voltage(c_VUSB_level)}V")
 
         # rtc
-        date_string = get_date_time_string(rtc)
-        print(f"Date / Time  : {date_string[0]} {date_string[1]}")
-        print(f"RTC temp     : {get_rtc_temperature(rtc)} C")
+        print(f"Date / Time  : {c_date_string[0]} {c_date_string[1]}")
+        print(f"RTC temp     : {c_rtc_temp} C")
 
+        # # other
+        # print(f"RAM Free     : {get_free_memory():,}")
+        # flash_size = get_flash_size()
+        # print(f"Flash Free   : {flash_size[0]:,}")
+        # print(f"Flash Size   : {flash_size[1]:,}")
 
-        print(f"RAM Free     : {get_free_memory():,}")
-        flash_size = get_flash_size()
-        print(f"Flash Free   : {flash_size[0]:,}")
-        print(f"Flash Size   : {flash_size[1]:,}")
-        write_to_sd("csv incoming")
+        current_values = (c_date_string[0],c_date_string[1], c_temperature,c_humidity,c_proximity,c_color_temp,c_light_lux,c_batt_level,c_VUSB_level,c_rtc_temp)
+
+        write_to_sd(build_csv(current_values))
         time.sleep(5)
 
 if (__name__ == '__main__'):
