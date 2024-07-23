@@ -2,7 +2,7 @@ import time, gc, os
 import feathers3
 import neopixel
 import board, analogio, digitalio, busio
-import sys, supervisor
+import sys, supervisor, microcontroller, usb_cdc
 
 # Sensors
 import adafruit_sht31d
@@ -19,7 +19,23 @@ import adafruit_minimqtt.adafruit_minimqtt as MQTT
 # Deep Sleep
 import alarm
 
-sense_id = "A"
+# If something happens, give up
+microcontroller.on_next_reset(microcontroller.RunMode.SAFE_MODE)
+
+# get the id for this board
+# todo, move all environmental varibles to here
+try:
+    sense_id = os.getenv("BALDSENSE_ID")
+except Exception as e:
+    print(e)
+    sense_id = "INVALID"
+
+try:
+    sleep_time = int(os.getenv("SLEEP_SECONDS"))
+except Exception as e:
+    print(e)
+    print("Add SLEEP_SECONDS to settings.toml, using 600")
+    sleep_time = 600
 
 print(f"\nbaldSENSE FeatherS3 sense_id")
 print("\n---------------------")
@@ -36,8 +52,7 @@ except Exception as e:
     print(e)
     raise e
     print("I2C Failed, is shield connected?")
-    while(True):
-        pass
+    time.sleep(30)
 
 # ds3231 (RTC)
 print("Enable RTC")
@@ -68,33 +83,35 @@ meas_batt_en = digitalio.DigitalInOut(board.D16)
 batt_meas = analogio.AnalogIn(board.A1)
 vusb_meas = analogio.AnalogIn(board.A0)
 
-print("Connect to MQTT Broker")
-
 mqtt_broker = os.getenv("MQTT_BROKER")
 wifi_ssid = os.getenv("WIFI_SSID")
 wifi_password = os.getenv("WIFI_PASSWORD")
 mqtt_feed = "incoming"
-print(f"broker: {mqtt_broker}")
+print("Connect to WiFi AP")
+
 try:
-    wifi.radio.connect(ssid=wifi_ssid, password=wifi_password, timeout=60)
+    wifi.radio.connect(ssid=wifi_ssid, password=wifi_password, timeout=20)
     if (wifi.radio.connected):
         print(f"Wifi Status: {wifi.radio.connected}")
         print(f"ssid: {wifi.radio.ap_info.ssid}")
         print(f"rssi: {wifi.radio.ap_info.rssi}")
         print(f"chan: {wifi.radio.ap_info.channel}")
+        # Create a socket pool
+        pool = socketpool.SocketPool(wifi.radio)
     else:
-        print("WiFi failed")
-except:
-    print("WiFi Failed")
+        print("[!] WiFi: AP connect failed")
+except Exception as e:
+    print(e)
+    print("[!] WiFi: WiFi Failed by exception")
 
 def mqtt_connected(client, userdata, flags, rc):
     # This function will be called when the client is connected
     # successfully to the broker.
     print(f"Connected to {mqtt_broker}!")
-    print(f"Listening for topic changes on {mqtt_feed}")
-
-    # Subscribe to all changes on the onoff_feed.
     client.subscribe(mqtt_feed)
+    print(f"Subscribed to {mqtt_feed}")
+    # Subscribe to all changes on the onoff_feed.
+    
 
 def mqtt_disconnected(client, userdata, rc):
     # This method is called when the client is disconnected
@@ -106,24 +123,30 @@ def mqtt_message(client, topic, message):
     print(f"New message on topic {topic}: {message}")
 
 
-# Create a socket pool
-pool = socketpool.SocketPool(wifi.radio)
-
-# Set up a MiniMQTT Client
-mqtt_client = MQTT.MQTT(
-    broker=mqtt_broker,
-    port=1883,
-    socket_pool=pool
-)
-
-# Setup the callback methods above
-mqtt_client.on_connect = mqtt_connected
-mqtt_client.on_disconnect = mqtt_disconnected
-mqtt_client.on_message = mqtt_message
 
 # Connect the client to the MQTT broker.
-print("Connecting to MQTT Broker...")
-mqtt_client.connect()
+try:
+    if (wifi.radio.connected):
+        # Set up a MiniMQTT Client
+        mqtt_client = MQTT.MQTT(
+            broker=mqtt_broker,
+            port=1883,
+            socket_pool=pool,
+            connect_retries=3,
+        )
+
+        # Setup the callback methods above
+        mqtt_client.on_connect = mqtt_connected
+        mqtt_client.on_disconnect = mqtt_disconnected
+        mqtt_client.on_message = mqtt_message
+
+        print(f"Connecting to MQTT broker: {mqtt_broker}...")
+        mqtt_client.connect()
+    else:
+        print("[!] Skipping MQTT, no WiFi")
+except:
+    print("MQTT Connection failed")
+    mqtt_client = None
 
 # Modified From todbot's CircuitPython Tricks
 # changed if to while so we get the entire string
@@ -132,7 +155,10 @@ class USBSerialReader:
     def __init__(self):
         self.s = ''
     def read(self,end_char='\n', echo=True):
-        n = supervisor.runtime.serial_bytes_available
+        try:
+            n = supervisor.runtime.serial_bytes_available
+        except:
+            n = None
         
         while(n > 0):                # we got bytes!
             s = sys.stdin.read(n)    # actually read it in
@@ -322,12 +348,13 @@ def main():
     global rtc
 
     usb_reader = USBSerialReader()
-    sleep_time = int(os.getenv("SLEEP_SECONDS"))
-#    while True:
 
+#    while True:
     handle_serial(usb_reader)
-    if (wifi.radio.connected):
-        mqtt_client.loop(timeout=1)
+    if (wifi.radio.connected) and (mqtt_client is not None):
+        if (mqtt_client.is_connected()):
+            if (mqtt_client.is_connected()):
+                mqtt_client.loop(timeout=1)
 
     c_temperature = get_temperature(sht30)
     c_humidity = get_humidity(sht30)
@@ -339,51 +366,64 @@ def main():
     c_rtc_temp = get_rtc_temperature(rtc)
     c_date_string = get_date_time_string(rtc)
     c_supervisor_ticks = supervisor.ticks_ms()
+    c_ram_free = get_free_memory()
 
-    print(f"\nSuperV Ticks : {c_supervisor_ticks}")
-    # sht30
-    print("Temperature  : %0.1f C" % c_temperature)
-    print("Humidity     : %0.1f %%" % c_humidity)
+    if (usb_cdc.Serial.connected):
+        print(f"\nSuperV Ticks : {c_supervisor_ticks}")
+        # sht30
+        print("Temperature  : %0.1f C" % c_temperature)
+        print("Humidity     : %0.1f %%" % c_humidity)
 
-    # apds-9660
-    print(f"Proximity    : {c_proximity}")
-    print(f"Color Temp   : {c_color_temp}")
-    print(f"Light Lux    : {c_light_lux}")
-    
-    # voltage dividers         
-    print(f"Battery Volt : {c_batt_level}, {convert_adc_voltage(c_batt_level)}V")
-    print(f"VUSB Volt    : {c_VUSB_level}, {convert_adc_voltage(c_VUSB_level)}V")
+        # apds-9660
+        print(f"Proximity    : {c_proximity}")
+        print(f"Color Temp   : {c_color_temp}")
+        print(f"Light Lux    : {c_light_lux}")
+        
+        # voltage dividers         
+        print(f"Battery Volt : {c_batt_level}, {convert_adc_voltage(c_batt_level)}V")
+        print(f"VUSB Volt    : {c_VUSB_level}, {convert_adc_voltage(c_VUSB_level)}V")
 
-    # rtc
-    print(f"Date / Time  : {c_date_string[0]} {c_date_string[1]}")
-    print(f"RTC temp     : {c_rtc_temp} C")
+        # rtc
+        print(f"Date / Time  : {c_date_string[0]} {c_date_string[1]}")
+        print(f"RTC temp     : {c_rtc_temp} C")
 
-    # other
-    print(f"RAM Free     : {get_free_memory():,}")
+        # other
+        print(f"RAM Free     : {c_ram_free:,}")
+    else:
+        print("skipped verbose because you aren't connected")
    
     # do the internet and local things
-    current_values = (c_supervisor_ticks,sense_id,c_date_string[0],c_date_string[1], c_temperature,c_humidity,c_proximity,c_color_temp,c_light_lux,c_batt_level,c_VUSB_level,c_rtc_temp,str(get_free_memory()))
+    current_values = (sense_id,c_supervisor_ticks,c_date_string[0],c_date_string[1], c_temperature,c_humidity,c_proximity,c_color_temp,c_light_lux,c_batt_level,c_VUSB_level,c_rtc_temp,str(c_ram_free))
     mqtt_success=0
-    if (wifi.radio.connected):
-        try:
-            mqtt_client.publish("pub/balda",str(current_values))
-            print("Published to MQTT Successful")
-            mqtt_success = 1
-        except Exception as e:
-            print("Published to MQTT Failed")
-            print(e)
-            mqtt_success = 0
+    try: 
+        if ((wifi.radio.connected) and (mqtt_client is not None)):
+            if (mqtt_client.is_connected()):
+                mqtt_client.publish("pub/balda",str(current_values))
+                print("Published to MQTT Successful")
+                mqtt_success = 1
+                mqtt_client.disconnect()
+            else:
+                print("[!] Did not published, not connected to broker")
+                mqtt_success = 0
+    except Exception as e:
+        print("Published to MQTT Failed")
+        print(e)
+        mqtt_success = 0
+
     current_values = current_values + (mqtt_success,)
     current_values = current_values + (str(wifi.radio.connected),)
     write_to_sd(build_csv(current_values))
-   
+
     #time.sleep(5)
     return
-
 
 if (__name__ == '__main__'):
     main()
     shutdown_sensors()
+    if (wifi.radio.connected):
+        print("Disabling Wi-Fi")
+        wifi.radio.enabled = False
     # preserve_dios is available on Espressif Targets...
-    time_alarm = alarm.time.TimeAlarm(monotonic_time=time.monotonic() + 60)
+    print(f"Sleeping for {sleep_time}...")
+    time_alarm = alarm.time.TimeAlarm(monotonic_time=time.monotonic() + sleep_time)
     alarm.exit_and_deep_sleep_until_alarms(time_alarm)
