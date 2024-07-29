@@ -18,4 +18,6 @@ Minimal environmental sensor board for characterizing a specific location.
 ## Status: Work In Progress
 Originally created as a livestream project. Being updated for a long-term IoT project. 
 
-V3 board fixes many issues with v1 and v2, but has not been tested yet.
+V3 board fixes many issues with v1 and v2. Testing is underway with a [FeatherS3 board](https://unexpectedmaker.com/shop.html#!/FeatherS3/p/577111310/category=0) provided by [Unexpected Maker](https://unexpectedmaker.com). 
+
+So far, each sensor is working as expected.

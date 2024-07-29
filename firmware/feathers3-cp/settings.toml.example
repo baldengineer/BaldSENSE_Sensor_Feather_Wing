@@ -1,0 +1,7 @@
+WIFI_SSID = ""
+WIFI_PASSWORD = ""
+MQTT_BROKER = ""
+BALDSENSE_ID  = "Something Unique"
+SLEEP_SECONDS = 60
+# Not used yet
+RUN_MODE = "Deploy"
