@@ -1,7 +1,15 @@
 WIFI_SSID = ""
 WIFI_PASSWORD = ""
-MQTT_BROKER = ""
+
 BALDSENSE_ID  = "Something Unique"
-SLEEP_SECONDS = 60
+SLEEP_SECONDS = 600
+
+# AIO
+AIO_USERNAME = ""
+AIO_KEY = ""
+
+# Soon to not be used
+MQTT_BROKER = ""
+
 # Not used yet
 RUN_MODE = "Deploy"
