@@ -27,21 +27,23 @@ microcontroller.on_next_reset(microcontroller.RunMode.SAFE_MODE)
 
 # get the id for this board
 # todo, move all environmental varibles to here
-sense_id = os.getenv("BALDSENSE_ID")
-if (sense_id is None):
-    # todo: prevent connecting
-    feed_prefix = None #prevent publishing to AIO
-    print("SENSE ID not set")
-    sense_id = "INVALID"
-else:
+try:
+    sense_id = os.getenv("BALDSENSE_ID")
     feed_prefix = sense_id.lower() + "-"
     print(f"Example feed: {feed_prefix}")
-    
-VUSB_THRESHOLD = os.getenv("VUSB_THRESHOLD")
-if (VUSB_THRESHOLD is None):
-    print("VUSB_THRESHOLD not set")
+except Exception as e:
+    print(e)
+    # todo: prevent connecting
+    feed_prefix = None #prevent publishing to AIO
+    print("SENSE ID needs to be set in settings.toml")
+    sense_id = "INVALID"
+
+try:
+    VUSB_THRESHOLD = os.getenv("VUSB_THRESHOLD")
+except Exception as e:
+    print(e)
+    print("VUSB_THRESHOLD not set, using 10000")
     VUSB_THRESHOLD = 10000
-print(f"VUSB_THRESHOLD: {VUSB_THRESHOLD}")
 
 try:
     if os.getenv("AIO_USERNAME") and os.getenv("AIO_KEY"):
@@ -57,8 +59,11 @@ except Exception as e:
     while(True):
         pass
 
-sleep_time = int(os.getenv("SLEEP_SECONDS"))
-if (sleep_time is None):
+
+try:
+    sleep_time = int(os.getenv("SLEEP_SECONDS"))
+except Exception as e:
+    print(e)
     print("Add SLEEP_SECONDS to settings.toml, using 600")
     sleep_time = 600
 
@@ -74,27 +79,29 @@ print("Enable I2C...")
 try:
     i2c = busio.I2C(board.SCL, board.SDA)
 except Exception as e:
+    i2c = None
     print(e)
     print("I2C Failed, is shield connected?")
-    raise e
 
+if (i2c is not None):
+    # ds3231 (RTC)
+    print("Enable RTC")
+    rtc = adafruit_ds3231.DS3231(i2c)
 
-# ds3231 (RTC)
-print("Enable RTC")
-rtc = adafruit_ds3231.DS3231(i2c)
+    print("Enable SHT30")
+    # Temperature / Humidity
+    sht30 = adafruit_sht31d.SHT31D(i2c) 
+    sht30.heater = False # draws up to 33 mW when on
 
-print("Enable SHT30")
-# Temperature / Humidity
-sht30 = adafruit_sht31d.SHT31D(i2c) 
-sht30.heater = False # draws up to 33 mW when on
+    print("Enable APDS-9660")
+    # Light
+    apds = APDS9960(i2c)
+    apds.enable_proximity = True
 
-print("Enable APDS-9660")
-# Light
-apds = APDS9960(i2c)
-apds.enable_proximity = True
-
-print("Enable SPI")
-spi = board.SPI()
+    print("Enable SPI")
+    spi = board.SPI()
+else:
+    print("I2C failed, skipped sensors")
 
 print("Setup sdcard pins")
 sd_cs = board.D19 #sdcardio needs pin object
@@ -272,7 +279,7 @@ def get_adc_levels(meas_pin, enable_pin=None):
         enable_pin.value = True
 
     adc_levels = meas_pin.value
-    
+
     # disable battery voltage divider (by going HiZ)
     if (enable_pin is not None):
         enable_pin.direction = digitalio.Direction.INPUT
@@ -333,12 +340,14 @@ def shutdown_sensors():
     global batt_meas
     global vusb_meas
     global rtc
+    global i2c
 
     # sht30.deinit()
     # apds.deinit()
     # rtc.deinit()
-    spi.deinit()
-    i2c.deinit()
+    if (i2c is not None):
+        spi.deinit()
+        i2c.deinit()
     meas_batt_en.direction = digitalio.Direction.INPUT
     print("Turning off Wing")
     sense_enable.direction = digitalio.Direction.INPUT
@@ -426,7 +435,6 @@ def main():
 
     # update time when connected to external power
     c_VUSB_level = get_adc_levels(vusb_meas) 
-    
     if (c_VUSB_level >= VUSB_THRESHOLD):
         # connected to usb
         print("Attempting to update RTC")
@@ -519,7 +527,8 @@ def main():
     return
 
 if (__name__ == '__main__'):
-    main()
+    if (i2c is not None):
+        main()
     shutdown_sensors()
     if (wifi.radio.connected):
         print("Disabling Wi-Fi")
