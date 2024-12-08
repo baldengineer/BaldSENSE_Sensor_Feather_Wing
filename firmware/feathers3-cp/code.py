@@ -17,6 +17,9 @@ import adafruit_requests
 import adafruit_minimqtt.adafruit_minimqtt as MQTT
 from adafruit_io.adafruit_io import IO_MQTT
 
+# Increment when deploying
+BUILD_NUM = 100
+
 # If something happens, give up
 microcontroller.on_next_reset(microcontroller.RunMode.SAFE_MODE)
 
@@ -32,6 +35,8 @@ if (SENSE_ID is None):
     SENSE_ID = "INVALID"
 print(f"Board ID: {SENSE_ID}")
 feed_prefix = SENSE_ID.lower() + "-"
+
+print(f"Build Num: {BUILD_NUM}")
 
 # Enable watchdog
 WDT_SECONDS = os.getenv("WDT_SECONDS")
@@ -96,7 +101,7 @@ try:
 except Exception as e:
     i2c = None
     print(e)
-    print("I2C Failed, is shield connected?")
+    print("[!!!] I2C Failed, is shield connected?")
 
 if (i2c is not None):
     # ds3231 (RTC)
@@ -120,7 +125,7 @@ if (i2c is not None):
     wdt.feed()
     spi = board.SPI()
 else:
-    print("I2C failed, skipped sensors")
+    print("[!] I2C failed, skipped sensors")
 
 wdt.feed()
 print("Setup sdcard pins")
@@ -357,8 +362,8 @@ def process_time_string(str):
         #params[8] = params[8].strip()
         rtc.datetime = time.struct_time(params)
     else:
-        print(f"Time String Contains: {elements} fields")
-        print("Time string should contain: tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec, tm_wday, tm_yday, tm_isdst")
+        print(f"[!] Time String Contains: {elements} fields")
+        print("[!] Time string should contain: tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec, tm_wday, tm_yday, tm_isdst")
         #T2024,07,20,17,30,30,6,-1,-1
 
 def shutdown_sensors():
@@ -487,7 +492,7 @@ def main():
                 print("Attempting to update RTC")
                 update_rtc_from_aio()
         else:
-            print("UPDATE_TIME not defined.")
+            print("[!] UPDATE_TIME not defined.")
     
     usb_reader = USBSerialReader()
 
@@ -534,7 +539,7 @@ def main():
         print("skipped verbose because you aren't connected")
    
     # do the internet and local things
-    current_values = (SENSE_ID,c_supervisor_ticks,c_date_string[0],c_date_string[1], c_temperature,c_humidity,c_proximity,c_color_temp,c_light_lux,c_batt_level,c_VUSB_level,c_rtc_temp,str(c_ram_free),wifi_rssi)
+    current_values = (SENSE_ID,BUILD_NUM,c_supervisor_ticks,c_date_string[0],c_date_string[1], c_temperature,c_humidity,c_proximity,c_color_temp,c_light_lux,c_batt_level,c_VUSB_level,c_rtc_temp,str(c_ram_free),wifi_rssi)
     mqtt_success=0
     try: 
         if ((wifi.radio.connected) and (mqtt_client is not None)):
@@ -556,6 +561,9 @@ def main():
 
                 print(f"{feed_prefix}rssi: {wifi_rssi}")
                 io.publish(f"{feed_prefix}rssi", str(wifi_rssi))
+                
+                print(f"{feed_prefix}build-num: {BUILD_NUM}")
+                io.publish(f"{feed_prefix}build-num", str(BUILD_NUM))                
 
                 print(f"{feed_prefix}mem-free: {str(c_ram_free)}")
                 io.publish(f"{feed_prefix}mem-free", str(c_ram_free))
@@ -570,7 +578,7 @@ def main():
                 print("[!] Did not published, not connected to broker")
                 mqtt_success = 0
     except Exception as e:
-        print("Published to MQTT Failed")
+        print("[!!!] Published to MQTT Failed")
         print(e)
         mqtt_success = 0
 
