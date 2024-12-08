@@ -1,6 +1,4 @@
 import time, gc, os
-import feathers3
-import neopixel
 import board, analogio, digitalio, busio
 import sys, supervisor, microcontroller, usb_cdc
 
@@ -12,12 +10,14 @@ import adafruit_ds3231
 import sdcardio, storage # sd card
 
 # Adafruit MQTT broker example
-import ssl
+import ssl  # this S in IoT is for Security
 import socketpool
 import wifi
 import adafruit_minimqtt.adafruit_minimqtt as MQTT
 from adafruit_io.adafruit_io import IO_MQTT
-#import ssl The S in IoT is for security
+
+# For updatig the rtc's time
+import adafruit_requests
 
 # Deep Sleep
 import alarm
@@ -37,6 +37,13 @@ except Exception as e:
     feed_prefix = None #prevent publishing to AIO
     print("SENSE ID needs to be set in settings.toml")
     sense_id = "INVALID"
+
+try:
+    VUSB_THRESHOLD = os.getenv("VUSB_THRESHOLD")
+except Exception as e:
+    print(e)
+    print("VUSB_THRESHOLD not set, using 10000")
+    VUSB_THRESHOLD = 10000
 
 try:
     if os.getenv("AIO_USERNAME") and os.getenv("AIO_KEY"):
@@ -73,9 +80,9 @@ try:
     i2c = busio.I2C(board.SCL, board.SDA)
 except Exception as e:
     print(e)
-    raise e
     print("I2C Failed, is shield connected?")
-    time.sleep(30)
+    raise e
+
 
 # ds3231 (RTC)
 print("Enable RTC")
@@ -117,6 +124,7 @@ try:
     if (wifi.radio.connected):
         print(f"Wifi Status: {wifi.radio.connected}")
         print(f"ssid: {wifi.radio.ap_info.ssid}")
+        wifi_rssi = wifi.radio.ap_info.rssi
         print(f"rssi: {wifi.radio.ap_info.rssi}")
         print(f"chan: {wifi.radio.ap_info.channel}")
         # Create a socket pool
@@ -190,8 +198,6 @@ except Exception as e:
     print(e)
     print("MQTT Connection failed")
     mqtt_client = None
-    while(True):
-        pass
 
 # Modified From todbot's CircuitPython Tricks
 # changed if to while so we get the entire string
@@ -392,6 +398,26 @@ def build_csv(values):
     #print(csv_str)
     return csv_str.lstrip(",")
 
+def update_rtc_from_aio():  
+    global rtc
+    global secrets
+
+    # another bit of todbot magic
+    pool = socketpool.SocketPool(wifi.radio)
+    request = adafruit_requests.Session(pool, ssl.create_default_context())
+    response = request.get("http://worldtimeapi.org/api/ip")
+    time_data = response.json()    
+    tz_hour_offset = int(time_data['utc_offset'][0:3])
+    tz_min_offset = int(time_data['utc_offset'][4:6])
+    if (tz_hour_offset < 0):
+        tz_min_offset *= -1
+    unixtime = int(time_data['unixtime'] + (tz_hour_offset * 60 * 60)) + (tz_min_offset * 60)
+
+    print(time_data)
+    print("URL time: ", response.headers['date'])
+
+    rtc.datetime = time.localtime( unixtime )
+
 ### Main
 def main():
     global sense_id
@@ -403,9 +429,15 @@ def main():
     global vusb_meas
     global rtc
 
+    # update time when connected to external power
+    c_VUSB_level = get_adc_levels(vusb_meas) 
+    if (c_VUSB_level >= VUSB_THRESHOLD):
+        # connected to usb
+        print("Attempting to update RTC")
+        update_rtc_from_aio()
+    
     usb_reader = USBSerialReader()
 
-#    while True:
     handle_serial(usb_reader)
     if (wifi.radio.connected) and (mqtt_client is not None):
         if (mqtt_client.is_connected()):
@@ -418,7 +450,6 @@ def main():
     c_color_temp = get_color_temp(get_color_data(apds))
     c_light_lux = get_light_lux(get_color_data(apds))
     c_batt_level = get_adc_levels(batt_meas, meas_batt_en)  
-    c_VUSB_level = get_adc_levels(vusb_meas)
     c_rtc_temp = get_rtc_temperature(rtc)
     c_date_string = get_date_time_string(rtc)
     c_supervisor_ticks = supervisor.ticks_ms()
@@ -449,27 +480,28 @@ def main():
         print("skipped verbose because you aren't connected")
    
     # do the internet and local things
-    current_values = (sense_id,c_supervisor_ticks,c_date_string[0],c_date_string[1], c_temperature,c_humidity,c_proximity,c_color_temp,c_light_lux,c_batt_level,c_VUSB_level,c_rtc_temp,str(c_ram_free))
+    current_values = (sense_id,c_supervisor_ticks,c_date_string[0],c_date_string[1], c_temperature,c_humidity,c_proximity,c_color_temp,c_light_lux,c_batt_level,c_VUSB_level,c_rtc_temp,str(c_ram_free),wifi_rssi)
     mqtt_success=0
     try: 
         if ((wifi.radio.connected) and (mqtt_client is not None)):
             if ((mqtt_client.is_connected()) and (feed_prefix is not None)):
-                #mqtt_client.publish("pub/balda",str(current_values))
-                print(f"b-dining-temp  : {c_temperature}")
-                #io.publish("b-dining-temp", str(c_temperature))
+                print(f"{feed_prefix}temp: {c_temperature}")
                 io.publish(f"{feed_prefix}temp", str(c_temperature))
 
-                print(f"b-dining-rh: {c_humidity}")
-                #io.publish("b-dining-rh", str(c_humidity))
+                print(f"{feed_prefix}rh: {c_humidity}")
                 io.publish(f"{feed_prefix}rh", str(c_humidity))
 
-                print(f"b-dining-batt-steps: {c_batt_level}")
-                #io.publish("b-dining-batt-steps", str(c_batt_level))
+                print(f"{feed_prefix}batt-steps: {c_batt_level}")
                 io.publish(f"{feed_prefix}batt-steps", str(c_batt_level))
+
+                print(f"{feed_prefix}vusb-steps: {c_VUSB_level}")
+                io.publish(f"{feed_prefix}vusb-steps", str(c_VUSB_level))
                 
-                print(f"b-dining-lux: {c_light_lux}")
-                #io.publish("b-dining-lux", str(c_light_lux))
+                print(f"{feed_prefix}lux: {c_light_lux}")
                 io.publish(f"{feed_prefix}lux", str(c_light_lux))
+
+                print(f"{feed_prefix}rssi: {wifi_rssi}")
+                io.publish(f"{feed_prefix}rssi", str(wifi_rssi))
 
                 io.loop() # make sure things get published before we go to sleep
                 print("Published to MQTT Successful")

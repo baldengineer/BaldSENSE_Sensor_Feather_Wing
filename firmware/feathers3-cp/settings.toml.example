@@ -3,6 +3,7 @@ WIFI_PASSWORD = ""
 
 BALDSENSE_ID  = "Something Unique"
 SLEEP_SECONDS = 600
+VUSB_THRESHOLD = 10000
 
 # AIO
 AIO_USERNAME = ""
@@ -13,3 +14,4 @@ MQTT_BROKER = ""
 
 # Not used yet
 RUN_MODE = "Deploy"
+TIMEZONE = "America/Chicago" # or Etc/UTC
