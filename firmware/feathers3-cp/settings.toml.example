@@ -1,7 +1,21 @@
 WIFI_SSID = ""
 WIFI_PASSWORD = ""
-MQTT_BROKER = ""
+
 BALDSENSE_ID  = "Something Unique"
-SLEEP_SECONDS = 60
+SLEEP_SECONDS = 600
+WDT_SECONDS = 30
+
+VUSB_THRESHOLD = 10000
+
+UPDATE_TIME = "Yes"
+
+# AIO
+AIO_USERNAME = ""
+AIO_KEY = ""
+
+# Soon to not be used
+MQTT_BROKER = ""
+
 # Not used yet
 RUN_MODE = "Deploy"
+TIMEZONE = "America/Chicago" # or Etc/UTC
