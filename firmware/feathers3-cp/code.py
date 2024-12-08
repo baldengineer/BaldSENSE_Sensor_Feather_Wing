@@ -1,6 +1,6 @@
-import time, gc, os
+import time, gc, os, alarm
 import board, analogio, digitalio, busio
-import sys, supervisor, microcontroller, usb_cdc
+import sys, supervisor, microcontroller, usb_cdc, watchdog
 
 # Sensors 
 import adafruit_sht31d
@@ -13,17 +13,18 @@ import sdcardio, storage # sd card
 import ssl  # this S in IoT is for Security
 import socketpool
 import wifi
+import adafruit_requests 
 import adafruit_minimqtt.adafruit_minimqtt as MQTT
 from adafruit_io.adafruit_io import IO_MQTT
 
-# For updatig the rtc's time
-import adafruit_requests
-
-# Deep Sleep
-import alarm
-
 # If something happens, give up
 microcontroller.on_next_reset(microcontroller.RunMode.SAFE_MODE)
+
+# # Enable watchdog
+# wdt = microcontroller.watchdog
+# wdt.timeout = 5
+# wdt.mode = watchdog.WatchDogMode.RESET
+# wdt.feed()
 
 # get the id for this board
 # todo, move all environmental varibles to here
@@ -406,21 +407,27 @@ def update_rtc_from_aio():
     global rtc
     global secrets
 
-    # another bit of todbot magic
-    pool = socketpool.SocketPool(wifi.radio)
-    request = adafruit_requests.Session(pool, ssl.create_default_context())
-    response = request.get("http://worldtimeapi.org/api/ip")
-    time_data = response.json()    
-    tz_hour_offset = int(time_data['utc_offset'][0:3])
-    tz_min_offset = int(time_data['utc_offset'][4:6])
-    if (tz_hour_offset < 0):
-        tz_min_offset *= -1
-    unixtime = int(time_data['unixtime'] + (tz_hour_offset * 60 * 60)) + (tz_min_offset * 60)
+    try:
+        # another bit of todbot magic
+        pool = socketpool.SocketPool(wifi.radio)
+        request = adafruit_requests.Session(pool, ssl.create_default_context())
+        response = request.get("http://worldtimeapi.org/api/ip")
+        time_data = response.json()    
+        tz_hour_offset = int(time_data['utc_offset'][0:3])
+        tz_min_offset = int(time_data['utc_offset'][4:6])
+        if (tz_hour_offset < 0):
+            tz_min_offset *= -1
+        unixtime = int(time_data['unixtime'] + (tz_hour_offset * 60 * 60)) + (tz_min_offset * 60)
 
-    print(time_data)
-    print("URL time: ", response.headers['date'])
+        #print(time_data)
+        print("URL time:", response.headers['date'])
 
-    rtc.datetime = time.localtime( unixtime )
+        rtc.datetime = time.localtime( unixtime )
+    except Exception as e:
+        print(e)
+        print("Time Update Failed")
+
+    return
 
 ### Main
 def main():
@@ -437,8 +444,15 @@ def main():
     c_VUSB_level = get_adc_levels(vusb_meas) 
     if (c_VUSB_level >= VUSB_THRESHOLD):
         # connected to usb
-        print("Attempting to update RTC")
-        update_rtc_from_aio()
+        UPDATE_TIME = os.getenv("UPDATE_TIME")
+        if (UPDATE_TIME is not None):
+            if UPDATE_TIME.lower() == "no":
+                print("Skipping RTC Update")
+            else:
+                print("Attempting to update RTC")
+                update_rtc_from_aio()
+        else:
+            print("UPDATE_TIME not defined.")
     
     usb_reader = USBSerialReader()
 
@@ -506,6 +520,9 @@ def main():
 
                 print(f"{feed_prefix}rssi: {wifi_rssi}")
                 io.publish(f"{feed_prefix}rssi", str(wifi_rssi))
+
+                print(f"{feed_prefix}mem-free: {str(c_ram_free)}")
+                io.publish(f"{feed_prefix}mem-free", str(c_ram_free))
 
                 io.loop() # make sure things get published before we go to sleep
                 print("Published to MQTT Successful")
