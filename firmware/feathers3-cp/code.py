@@ -27,23 +27,21 @@ microcontroller.on_next_reset(microcontroller.RunMode.SAFE_MODE)
 
 # get the id for this board
 # todo, move all environmental varibles to here
-try:
-    sense_id = os.getenv("BALDSENSE_ID")
-    feed_prefix = sense_id.lower() + "-"
-    print(f"Example feed: {feed_prefix}")
-except Exception as e:
-    print(e)
+sense_id = os.getenv("BALDSENSE_ID")
+if (sense_id is None):
     # todo: prevent connecting
     feed_prefix = None #prevent publishing to AIO
-    print("SENSE ID needs to be set in settings.toml")
+    print("SENSE ID not set")
     sense_id = "INVALID"
-
-try:
-    VUSB_THRESHOLD = os.getenv("VUSB_THRESHOLD")
-except Exception as e:
-    print(e)
-    print("VUSB_THRESHOLD not set, using 10000")
+else:
+    feed_prefix = sense_id.lower() + "-"
+    print(f"Example feed: {feed_prefix}")
+    
+VUSB_THRESHOLD = os.getenv("VUSB_THRESHOLD")
+if (VUSB_THRESHOLD is None):
+    print("VUSB_THRESHOLD not set")
     VUSB_THRESHOLD = 10000
+print(f"VUSB_THRESHOLD: {VUSB_THRESHOLD}")
 
 try:
     if os.getenv("AIO_USERNAME") and os.getenv("AIO_KEY"):
@@ -59,11 +57,8 @@ except Exception as e:
     while(True):
         pass
 
-
-try:
-    sleep_time = int(os.getenv("SLEEP_SECONDS"))
-except Exception as e:
-    print(e)
+sleep_time = int(os.getenv("SLEEP_SECONDS"))
+if (sleep_time is None):
     print("Add SLEEP_SECONDS to settings.toml, using 600")
     sleep_time = 600
 
@@ -277,7 +272,7 @@ def get_adc_levels(meas_pin, enable_pin=None):
         enable_pin.value = True
 
     adc_levels = meas_pin.value
-
+    
     # disable battery voltage divider (by going HiZ)
     if (enable_pin is not None):
         enable_pin.direction = digitalio.Direction.INPUT
@@ -431,6 +426,7 @@ def main():
 
     # update time when connected to external power
     c_VUSB_level = get_adc_levels(vusb_meas) 
+    
     if (c_VUSB_level >= VUSB_THRESHOLD):
         # connected to usb
         print("Attempting to update RTC")
